@@ -1,0 +1,1058 @@
+[
+  {
+    "alpha3Code": "ABW",
+    "population": 106314
+  },
+  {
+    "alpha3Code": "AFG",
+    "population": 38041754
+  },
+  {
+    "alpha3Code": "AGO",
+    "population": 31825295
+  },
+  {
+    "alpha3Code": "ALB",
+    "population": 2854191
+  },
+  {
+    "alpha3Code": "AND",
+    "population": 77142
+  },
+  {
+    "alpha3Code": "ARB",
+    "population": 427870270
+  },
+  {
+    "alpha3Code": "ARE",
+    "population": 9770529
+  },
+  {
+    "alpha3Code": "ARG",
+    "population": 44938712
+  },
+  {
+    "alpha3Code": "ARM",
+    "population": 2957731
+  },
+  {
+    "alpha3Code": "ASM",
+    "population": 55312
+  },
+  {
+    "alpha3Code": "ATG",
+    "population": 97118
+  },
+  {
+    "alpha3Code": "AUS",
+    "population": 25364307
+  },
+  {
+    "alpha3Code": "AUT",
+    "population": 8877067
+  },
+  {
+    "alpha3Code": "AZE",
+    "population": 10023318
+  },
+  {
+    "alpha3Code": "BDI",
+    "population": 11530580
+  },
+  {
+    "alpha3Code": "BEL",
+    "population": 11484055
+  },
+  {
+    "alpha3Code": "BEN",
+    "population": 11801151
+  },
+  {
+    "alpha3Code": "BFA",
+    "population": 20321378
+  },
+  {
+    "alpha3Code": "BGD",
+    "population": 163046161
+  },
+  {
+    "alpha3Code": "BGR",
+    "population": 6975761
+  },
+  {
+    "alpha3Code": "BHR",
+    "population": 1641172
+  },
+  {
+    "alpha3Code": "BHS",
+    "population": 389482
+  },
+  {
+    "alpha3Code": "BIH",
+    "population": 3301000
+  },
+  {
+    "alpha3Code": "BLR",
+    "population": 9466856
+  },
+  {
+    "alpha3Code": "BLZ",
+    "population": 390353
+  },
+  {
+    "alpha3Code": "BMU",
+    "population": 63918
+  },
+  {
+    "alpha3Code": "BOL",
+    "population": 11513100
+  },
+  {
+    "alpha3Code": "BRA",
+    "population": 211049527
+  },
+  {
+    "alpha3Code": "BRB",
+    "population": 287025
+  },
+  {
+    "alpha3Code": "BRN",
+    "population": 433285
+  },
+  {
+    "alpha3Code": "BTN",
+    "population": 763092
+  },
+  {
+    "alpha3Code": "BWA",
+    "population": 2303697
+  },
+  {
+    "alpha3Code": "CAF",
+    "population": 4745185
+  },
+  {
+    "alpha3Code": "CAN",
+    "population": 37589262
+  },
+  {
+    "alpha3Code": "CEB",
+    "population": 102378579
+  },
+  {
+    "alpha3Code": "CHE",
+    "population": 8574832
+  },
+  {
+    "alpha3Code": "CHI",
+    "population": 172259
+  },
+  {
+    "alpha3Code": "CHL",
+    "population": 18952038
+  },
+  {
+    "alpha3Code": "CHN",
+    "population": 1397715000
+  },
+  {
+    "alpha3Code": "CIV",
+    "population": 25716544
+  },
+  {
+    "alpha3Code": "CMR",
+    "population": 25876380
+  },
+  {
+    "alpha3Code": "COD",
+    "population": 86790567
+  },
+  {
+    "alpha3Code": "COG",
+    "population": 5380508
+  },
+  {
+    "alpha3Code": "COL",
+    "population": 50339443
+  },
+  {
+    "alpha3Code": "COM",
+    "population": 850886
+  },
+  {
+    "alpha3Code": "CPV",
+    "population": 549935
+  },
+  {
+    "alpha3Code": "CRI",
+    "population": 5047561
+  },
+  {
+    "alpha3Code": "CSS",
+    "population": 7401383
+  },
+  {
+    "alpha3Code": "CUB",
+    "population": 11333483
+  },
+  {
+    "alpha3Code": "CUW",
+    "population": 157538
+  },
+  {
+    "alpha3Code": "CYM",
+    "population": 64948
+  },
+  {
+    "alpha3Code": "CYP",
+    "population": 1198575
+  },
+  {
+    "alpha3Code": "CZE",
+    "population": 10669709
+  },
+  {
+    "alpha3Code": "DEU",
+    "population": 83132799
+  },
+  {
+    "alpha3Code": "DJI",
+    "population": 973560
+  },
+  {
+    "alpha3Code": "DMA",
+    "population": 71808
+  },
+  {
+    "alpha3Code": "DNK",
+    "population": 5818553
+  },
+  {
+    "alpha3Code": "DOM",
+    "population": 10738958
+  },
+  {
+    "alpha3Code": "DZA",
+    "population": 43053054
+  },
+  {
+    "alpha3Code": "EAP",
+    "population": 2093675040
+  },
+  {
+    "alpha3Code": "EAR",
+    "population": 3290290613
+  },
+  {
+    "alpha3Code": "EAS",
+    "population": 2340628292
+  },
+  {
+    "alpha3Code": "ECA",
+    "population": 399404587
+  },
+  {
+    "alpha3Code": "ECS",
+    "population": 921140092
+  },
+  {
+    "alpha3Code": "ECU",
+    "population": 17373662
+  },
+  {
+    "alpha3Code": "EGY",
+    "population": 100388073
+  },
+  {
+    "alpha3Code": "EMU",
+    "population": 342597698
+  },
+  {
+    "alpha3Code": "ERI",
+    "population": 3213972
+  },
+  {
+    "alpha3Code": "ESP",
+    "population": 47076781
+  },
+  {
+    "alpha3Code": "EST",
+    "population": 1326590
+  },
+  {
+    "alpha3Code": "ETH",
+    "population": 112078730
+  },
+  {
+    "alpha3Code": "EUU",
+    "population": 447512041
+  },
+  {
+    "alpha3Code": "FCS",
+    "population": 798138587
+  },
+  {
+    "alpha3Code": "FIN",
+    "population": 5520314
+  },
+  {
+    "alpha3Code": "FJI",
+    "population": 889953
+  },
+  {
+    "alpha3Code": "FRA",
+    "population": 67059887
+  },
+  {
+    "alpha3Code": "FRO",
+    "population": 48678
+  },
+  {
+    "alpha3Code": "FSM",
+    "population": 113815
+  },
+  {
+    "alpha3Code": "GAB",
+    "population": 2172579
+  },
+  {
+    "alpha3Code": "GBR",
+    "population": 66834405
+  },
+  {
+    "alpha3Code": "GEO",
+    "population": 3720382
+  },
+  {
+    "alpha3Code": "GHA",
+    "population": 30417856
+  },
+  {
+    "alpha3Code": "GIB",
+    "population": 33701
+  },
+  {
+    "alpha3Code": "GIN",
+    "population": 12771246
+  },
+  {
+    "alpha3Code": "GMB",
+    "population": 2347706
+  },
+  {
+    "alpha3Code": "GNB",
+    "population": 1920922
+  },
+  {
+    "alpha3Code": "GNQ",
+    "population": 1355986
+  },
+  {
+    "alpha3Code": "GRC",
+    "population": 10716322
+  },
+  {
+    "alpha3Code": "GRD",
+    "population": 112003
+  },
+  {
+    "alpha3Code": "GRL",
+    "population": 56225
+  },
+  {
+    "alpha3Code": "GTM",
+    "population": 16604026
+  },
+  {
+    "alpha3Code": "GUM",
+    "population": 167294
+  },
+  {
+    "alpha3Code": "GUY",
+    "population": 782766
+  },
+  {
+    "alpha3Code": "HIC",
+    "population": 1235852838
+  },
+  {
+    "alpha3Code": "HKG",
+    "population": 7507400
+  },
+  {
+    "alpha3Code": "HND",
+    "population": 9746117
+  },
+  {
+    "alpha3Code": "HPC",
+    "population": 801708035
+  },
+  {
+    "alpha3Code": "HRV",
+    "population": 4067500
+  },
+  {
+    "alpha3Code": "HTI",
+    "population": 11263077
+  },
+  {
+    "alpha3Code": "HUN",
+    "population": 9769949
+  },
+  {
+    "alpha3Code": "IBD",
+    "population": 4816235953
+  },
+  {
+    "alpha3Code": "IBT",
+    "population": 6486934853
+  },
+  {
+    "alpha3Code": "IDA",
+    "population": 1670698900
+  },
+  {
+    "alpha3Code": "IDB",
+    "population": 561572202
+  },
+  {
+    "alpha3Code": "IDN",
+    "population": 270625568
+  },
+  {
+    "alpha3Code": "IDX",
+    "population": 1109126698
+  },
+  {
+    "alpha3Code": "IMN",
+    "population": 84584
+  },
+  {
+    "alpha3Code": "IND",
+    "population": 1366417754
+  },
+  {
+    "alpha3Code": "INX",
+    "population": "INX"
+  },
+  {
+    "alpha3Code": "IRL",
+    "population": 4941444
+  },
+  {
+    "alpha3Code": "IRN",
+    "population": 82913906
+  },
+  {
+    "alpha3Code": "IRQ",
+    "population": 39309783
+  },
+  {
+    "alpha3Code": "ISL",
+    "population": 361313
+  },
+  {
+    "alpha3Code": "ISR",
+    "population": 9053300
+  },
+  {
+    "alpha3Code": "ITA",
+    "population": 60297396
+  },
+  {
+    "alpha3Code": "JAM",
+    "population": 2948279
+  },
+  {
+    "alpha3Code": "JOR",
+    "population": 10101694
+  },
+  {
+    "alpha3Code": "JPN",
+    "population": 126264931
+  },
+  {
+    "alpha3Code": "KAZ",
+    "population": 18513930
+  },
+  {
+    "alpha3Code": "KEN",
+    "population": 52573973
+  },
+  {
+    "alpha3Code": "KGZ",
+    "population": 6456900
+  },
+  {
+    "alpha3Code": "KHM",
+    "population": 16486542
+  },
+  {
+    "alpha3Code": "KIR",
+    "population": 117606
+  },
+  {
+    "alpha3Code": "KNA",
+    "population": 52834
+  },
+  {
+    "alpha3Code": "KOR",
+    "population": 51709098
+  },
+  {
+    "alpha3Code": "KWT",
+    "population": 4207083
+  },
+  {
+    "alpha3Code": "LAC",
+    "population": 613773119
+  },
+  {
+    "alpha3Code": "LAO",
+    "population": 7169455
+  },
+  {
+    "alpha3Code": "LBN",
+    "population": 6855713
+  },
+  {
+    "alpha3Code": "LBR",
+    "population": 4937374
+  },
+  {
+    "alpha3Code": "LBY",
+    "population": 6777452
+  },
+  {
+    "alpha3Code": "LCA",
+    "population": 182790
+  },
+  {
+    "alpha3Code": "LCN",
+    "population": 646430843
+  },
+  {
+    "alpha3Code": "LDC",
+    "population": 1033388876
+  },
+  {
+    "alpha3Code": "LIC",
+    "population": 668454965
+  },
+  {
+    "alpha3Code": "LIE",
+    "population": 38019
+  },
+  {
+    "alpha3Code": "LKA",
+    "population": 21803000
+  },
+  {
+    "alpha3Code": "LMC",
+    "population": 2913363391
+  },
+  {
+    "alpha3Code": "LMY",
+    "population": 6437681136
+  },
+  {
+    "alpha3Code": "LSO",
+    "population": 2125268
+  },
+  {
+    "alpha3Code": "LTE",
+    "population": 2298470832
+  },
+  {
+    "alpha3Code": "LTU",
+    "population": 2786844
+  },
+  {
+    "alpha3Code": "LUX",
+    "population": 619896
+  },
+  {
+    "alpha3Code": "LVA",
+    "population": 1912789
+  },
+  {
+    "alpha3Code": "MAC",
+    "population": 640445
+  },
+  {
+    "alpha3Code": "MAF",
+    "population": 38002
+  },
+  {
+    "alpha3Code": "MAR",
+    "population": 36471769
+  },
+  {
+    "alpha3Code": "MCO",
+    "population": 38964
+  },
+  {
+    "alpha3Code": "MDA",
+    "population": 2657637
+  },
+  {
+    "alpha3Code": "MDG",
+    "population": 26969307
+  },
+  {
+    "alpha3Code": "MDV",
+    "population": 530953
+  },
+  {
+    "alpha3Code": "MEA",
+    "population": 456707404
+  },
+  {
+    "alpha3Code": "MEX",
+    "population": 127575529
+  },
+  {
+    "alpha3Code": "MHL",
+    "population": 58791
+  },
+  {
+    "alpha3Code": "MIC",
+    "population": 5769226171
+  },
+  {
+    "alpha3Code": "MKD",
+    "population": 2083459
+  },
+  {
+    "alpha3Code": "MLI",
+    "population": 19658031
+  },
+  {
+    "alpha3Code": "MLT",
+    "population": 502653
+  },
+  {
+    "alpha3Code": "MMR",
+    "population": 54045420
+  },
+  {
+    "alpha3Code": "MNA",
+    "population": 389457086
+  },
+  {
+    "alpha3Code": "MNE",
+    "population": 622137
+  },
+  {
+    "alpha3Code": "MNG",
+    "population": 3225167
+  },
+  {
+    "alpha3Code": "MNP",
+    "population": 57216
+  },
+  {
+    "alpha3Code": "MOZ",
+    "population": 30366036
+  },
+  {
+    "alpha3Code": "MRT",
+    "population": 4525696
+  },
+  {
+    "alpha3Code": "MUS",
+    "population": 1265711
+  },
+  {
+    "alpha3Code": "MWI",
+    "population": 18628747
+  },
+  {
+    "alpha3Code": "MYS",
+    "population": 31949777
+  },
+  {
+    "alpha3Code": "NAC",
+    "population": 365892703
+  },
+  {
+    "alpha3Code": "NAM",
+    "population": 2494530
+  },
+  {
+    "alpha3Code": "NCL",
+    "population": 287800
+  },
+  {
+    "alpha3Code": "NER",
+    "population": 23310715
+  },
+  {
+    "alpha3Code": "NGA",
+    "population": 200963599
+  },
+  {
+    "alpha3Code": "NIC",
+    "population": 6545502
+  },
+  {
+    "alpha3Code": "NLD",
+    "population": 17332850
+  },
+  {
+    "alpha3Code": "NOR",
+    "population": 5347896
+  },
+  {
+    "alpha3Code": "NPL",
+    "population": 28608710
+  },
+  {
+    "alpha3Code": "NRU",
+    "population": 12581
+  },
+  {
+    "alpha3Code": "NZL",
+    "population": 4917000
+  },
+  {
+    "alpha3Code": "OED",
+    "population": 1359963500
+  },
+  {
+    "alpha3Code": "OMN",
+    "population": 4974986
+  },
+  {
+    "alpha3Code": "OSS",
+    "population": 31360407
+  },
+  {
+    "alpha3Code": "PAK",
+    "population": 216565318
+  },
+  {
+    "alpha3Code": "PAN",
+    "population": 4246439
+  },
+  {
+    "alpha3Code": "PER",
+    "population": 32510453
+  },
+  {
+    "alpha3Code": "PHL",
+    "population": 108116615
+  },
+  {
+    "alpha3Code": "PLW",
+    "population": 18008
+  },
+  {
+    "alpha3Code": "PNG",
+    "population": 8776109
+  },
+  {
+    "alpha3Code": "POL",
+    "population": 37970874
+  },
+  {
+    "alpha3Code": "PRE",
+    "population": 944902749
+  },
+  {
+    "alpha3Code": "PRI",
+    "population": 3193694
+  },
+  {
+    "alpha3Code": "PRK",
+    "population": 25666161
+  },
+  {
+    "alpha3Code": "PRT",
+    "population": 10269417
+  },
+  {
+    "alpha3Code": "PRY",
+    "population": 7044636
+  },
+  {
+    "alpha3Code": "PSE",
+    "population": 4685306
+  },
+  {
+    "alpha3Code": "PSS",
+    "population": 2493696
+  },
+  {
+    "alpha3Code": "PST",
+    "population": 1112914457
+  },
+  {
+    "alpha3Code": "PYF",
+    "population": 279287
+  },
+  {
+    "alpha3Code": "QAT",
+    "population": 2832067
+  },
+  {
+    "alpha3Code": "ROU",
+    "population": 19356544
+  },
+  {
+    "alpha3Code": "RUS",
+    "population": 144373535
+  },
+  {
+    "alpha3Code": "RWA",
+    "population": 12626950
+  },
+  {
+    "alpha3Code": "SAS",
+    "population": 1835776742
+  },
+  {
+    "alpha3Code": "SAU",
+    "population": 34268528
+  },
+  {
+    "alpha3Code": "SDN",
+    "population": 42813238
+  },
+  {
+    "alpha3Code": "SEN",
+    "population": 16296364
+  },
+  {
+    "alpha3Code": "SGP",
+    "population": 5703569
+  },
+  {
+    "alpha3Code": "SLB",
+    "population": 669823
+  },
+  {
+    "alpha3Code": "SLE",
+    "population": 7813215
+  },
+  {
+    "alpha3Code": "SLV",
+    "population": 6453553
+  },
+  {
+    "alpha3Code": "SMR",
+    "population": 33860
+  },
+  {
+    "alpha3Code": "SOM",
+    "population": 15442905
+  },
+  {
+    "alpha3Code": "SRB",
+    "population": 6944975
+  },
+  {
+    "alpha3Code": "SSA",
+    "population": 1105594562
+  },
+  {
+    "alpha3Code": "SSD",
+    "population": 11062113
+  },
+  {
+    "alpha3Code": "SSF",
+    "population": 1106957898
+  },
+  {
+    "alpha3Code": "SST",
+    "population": 41255486
+  },
+  {
+    "alpha3Code": "STP",
+    "population": 215056
+  },
+  {
+    "alpha3Code": "SUR",
+    "population": 581363
+  },
+  {
+    "alpha3Code": "SVK",
+    "population": 5454073
+  },
+  {
+    "alpha3Code": "SVN",
+    "population": 2087946
+  },
+  {
+    "alpha3Code": "SWE",
+    "population": 10285453
+  },
+  {
+    "alpha3Code": "SWZ",
+    "population": 1148130
+  },
+  {
+    "alpha3Code": "SXM",
+    "population": 40733
+  },
+  {
+    "alpha3Code": "SYC",
+    "population": 97625
+  },
+  {
+    "alpha3Code": "SYR",
+    "population": 17070135
+  },
+  {
+    "alpha3Code": "TCA",
+    "population": 38191
+  },
+  {
+    "alpha3Code": "TCD",
+    "population": 15946876
+  },
+  {
+    "alpha3Code": "TEA",
+    "population": 2067984156
+  },
+  {
+    "alpha3Code": "TEC",
+    "population": 460799505
+  },
+  {
+    "alpha3Code": "TGO",
+    "population": 8082366
+  },
+  {
+    "alpha3Code": "THA",
+    "population": 69625582
+  },
+  {
+    "alpha3Code": "TJK",
+    "population": 9321018
+  },
+  {
+    "alpha3Code": "TKM",
+    "population": 5942089
+  },
+  {
+    "alpha3Code": "TLA",
+    "population": 630644772
+  },
+  {
+    "alpha3Code": "TLS",
+    "population": 1293119
+  },
+  {
+    "alpha3Code": "TMN",
+    "population": 384771780
+  },
+  {
+    "alpha3Code": "TON",
+    "population": 104494
+  },
+  {
+    "alpha3Code": "TSA",
+    "population": 1835776742
+  },
+  {
+    "alpha3Code": "TSS",
+    "population": 1106957898
+  },
+  {
+    "alpha3Code": "TTO",
+    "population": 1394973
+  },
+  {
+    "alpha3Code": "TUN",
+    "population": 11694719
+  },
+  {
+    "alpha3Code": "TUR",
+    "population": 83429615
+  },
+  {
+    "alpha3Code": "TUV",
+    "population": 11646
+  },
+  {
+    "alpha3Code": "TZA",
+    "population": 58005463
+  },
+  {
+    "alpha3Code": "UGA",
+    "population": 44269594
+  },
+  {
+    "alpha3Code": "UKR",
+    "population": 44385155
+  },
+  {
+    "alpha3Code": "UMC",
+    "population": 2855862780
+  },
+  {
+    "alpha3Code": "URY",
+    "population": 3461734
+  },
+  {
+    "alpha3Code": "USA",
+    "population": 328239523
+  },
+  {
+    "alpha3Code": "UZB",
+    "population": 33580650
+  },
+  {
+    "alpha3Code": "VCT",
+    "population": 110589
+  },
+  {
+    "alpha3Code": "VEN",
+    "population": 28515829
+  },
+  {
+    "alpha3Code": "VGB",
+    "population": 30030
+  },
+  {
+    "alpha3Code": "VIR",
+    "population": 106631
+  },
+  {
+    "alpha3Code": "VNM",
+    "population": 96462106
+  },
+  {
+    "alpha3Code": "VUT",
+    "population": 299882
+  },
+  {
+    "alpha3Code": "WLD",
+    "population": 7673533974
+  },
+  {
+    "alpha3Code": "WSM",
+    "population": 197097
+  },
+  {
+    "alpha3Code": "XKX",
+    "population": 1794248
+  },
+  {
+    "alpha3Code": "YEM",
+    "population": 29161922
+  },
+  {
+    "alpha3Code": "ZAF",
+    "population": 58558270
+  },
+  {
+    "alpha3Code": "ZMB",
+    "population": 17861030
+  },
+  {
+    "alpha3Code": "ZWE",
+    "population": 14645468
+  }
+]

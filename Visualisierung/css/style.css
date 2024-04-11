@@ -1,0 +1,66 @@
+/* Wird CSS mit einem Stern selektriert, wird der Style auf alle HTML-Elemente angewendet */
+* {
+    /* box-sizing: border-box
+    
+    tatsächliche Größe inklusive Ränder,etc 
+    "Wenn Sie die Breite eines Elements auf 100 Pixel festlegen, werden diese 100 Pixel alle von Ihnen hinzugefügten Ränder oder Füllungen enthalten, und das Inhaltsfeld wird verkleinert, um diese zusätzliche Breite zu absorbieren. Dadurch wird die Größenanpassung von Elementen normalerweise viel einfacher." 
+    *** Link: https://developer.mozilla.org/de/docs/Web/CSS/box-sizing ***
+    */
+    box-sizing: border-box; 
+
+    /* Ich setze gerne für alle Elemente padding und margin auf 0, weil ich Abstände selbst definieren will.
+    - Margin: Wird zum Positionieren von Elemente genutzt und ist der Abstand nach außen.
+        - Styles wie eine Hintergrundfarbe wird hier nicht angewendet, weil der Abstand außerhalb vom Element liegt.
+    - Padding: Das ist der Abstand innerhalb vom Element, der Zwischenraum vom Inhalt und der Elementgrenze.
+        - Damit kann man z. B. einen Button vergrößern, die Hintergrundfarbe wird auch im Padding verwendet.
+
+    *** Link: https://www.mediaevent.de/css/margin.html ***
+    */
+    padding: 0;
+    margin: 0;
+}
+
+/* HTML-Tags können direkt per Name selektiert werden: body, div, p, etc. */
+body {
+    background-color: rgb(39,39,39);
+    color:white;
+    font-family: 'Fira Sans', sans-serif;
+}
+
+/* IDs können mit einer Raute selektiert werden. */
+#renderer {
+    background-color: rgba(255, 255, 255, 0.05);
+    width: 100vw;
+    height: 100vh;
+
+    /* Wenn in einem Container absolute Elemente stecken, muss der "parent"-Container relativ definiert sein, dann wird das Koordinatensystem vom "parent" genutzt.
+    Hier hat z. B. der Renderer-Container ein margin von 5px. Somit beginnt das Balkendiagramm erst bei 5px (x- und y-Position)
+    */
+    position: relative;
+}
+
+.dot {
+    position: absolute;
+    background-color: white;
+    border-radius: 50%;
+}
+
+#hoverLabel, #clickLabel {
+    width: 100vw;
+    height: 30px;
+    line-height: 30px;
+    background-color: #444;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.hover {
+    background-color: grey;
+}
+
+.hoverOff {
+    background-color: white;
+}
+.clickk {
+    background-color: red;
+}
