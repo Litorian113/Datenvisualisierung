@@ -26,9 +26,19 @@ body {
     color:white;
     font-family: 'Fira Sans', sans-serif;
 }
-
+#mainScreen {
+    width: 50%;
+}
 /* IDs können mit einer Raute selektiert werden. */
 #renderer {
+    background-image: url("/Assets/naturalEarth.jpg");
+      /* Full height */
+
+
+  /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     background-color: rgba(255, 255, 255, 0.05);
     width: 100vw;
     height: 100vh;
@@ -36,7 +46,7 @@ body {
     /* Wenn in einem Container absolute Elemente stecken, muss der "parent"-Container relativ definiert sein, dann wird das Koordinatensystem vom "parent" genutzt.
     Hier hat z. B. der Renderer-Container ein margin von 5px. Somit beginnt das Balkendiagramm erst bei 5px (x- und y-Position)
     */
-    position: relative;
+    position: absolute;
 }
 
 .dot {
@@ -63,4 +73,21 @@ body {
 }
 .clickk {
     background-color: red;
+}
+
+.dotTsu {
+    position:absolute;
+    background-color: blue;
+    border-radius: 50%;
+}
+#earthquakeInfoBox {
+    position: absolute;
+    display: none;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    color: black;
 }
