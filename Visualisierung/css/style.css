@@ -25,6 +25,8 @@ body {
     background-color: rgb(39,39,39);
     color:white;
     font-family: 'Fira Sans', sans-serif;
+    margin: 0;
+    padding: 0;
 }
 #mainScreen {
     width: 100%;
@@ -42,6 +44,7 @@ body {
     background-color: rgba(255, 255, 255, 0.05);
     width: 100vw;
     height: 100vh;
+    overflow: hidden;
 
     /* Wenn in einem Container absolute Elemente stecken, muss der "parent"-Container relativ definiert sein, dann wird das Koordinatensystem vom "parent" genutzt.
     Hier hat z. B. der Renderer-Container ein margin von 5px. Somit beginnt das Balkendiagramm erst bei 5px (x- und y-Position)
@@ -90,7 +93,25 @@ body {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     z-index: 9999;
     color: black;
+    font-family: sometype mono;
+    font-size: 12px;
 }
+
+#tsunamiInfoBox {
+    font-family: sometype mono;
+    font-size: 12px;
+    position: absolute;
+    display: none;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    color: black;
+    max-width: 35%; /* Maximale Breite auf 40% der Bildschirmbreite festlegen */
+}
+
 
 
 #yearIndicator {
@@ -355,9 +376,9 @@ input {
   }
   
   input:checked + .sliderRound:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
+    -webkit-transform: translateX(28px);
+    -ms-transform: translateX(30px);
+    transform: translateX(30px);
   }
   
   /* Rounded sliders */
