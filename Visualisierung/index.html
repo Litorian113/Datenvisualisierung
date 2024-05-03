@@ -7,15 +7,84 @@
     <script src="lib/jquery.min.js"></script>
     <script src="lib/gmynd.js"></script>
     <link rel="stylesheet" href="css/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sometype+Mono:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
+
+
 </head>
 
 <body>
+    <div class="loader" id="loaderContainer">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
     <div id="mainScreen">
-    <div id="renderer">
-        <div id="hoverLabel"></div>
-        <div id="clickLabel"></div>
+
+        <div class="controlPanel">
+            <div>
+                <div>
+                    <h2>Tsunami and Earthquake Events</h2>
+                </div>
+                <div class="turnOnOffArea">
+                    <div class="controlBox">
+                        <div>
+                            <p>Earthquake</p>
+                        </div>
+                        <div>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="sliderRound round"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="controlBox">
+                        <div>
+                            <p>Tsunami</p>
+                        </div>
+                        <div>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="sliderRound round"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="togglePanel">
+                <!-- Pfeil-Icon -->
+            </div>
+
+        </div>
+        <div id="bottomSlider">
+            <div id="sliderLeft">
+                <span class="sliderScale">1965</span>
+            </div>
+            <div id="sliderContainer">
+                <div id="yearIndicator">Selected Year: <span id="currentYear">1965</span></div>
+                <input class="slider" type="range" min="1965" max="2016" value="1965" id="yearRange">
+            </div>
+            <div id="sliderRight">
+                <span class="sliderScale">2016</span>
+            </div>
+        </div>
+        <div id="renderer">
+            <div id="hoverLabel"></div>
+            <div id="clickLabel"></div>
+        </div>
     </div>
-    </div>
+    <script>
+        // Sobald die Seite vollständig geladen ist, den Loader ausblenden
+        window.addEventListener('load', function () {
+            var loader = document.getElementById('loaderContainer');
+            loader.style.display = 'none';
+        });
+    </script>
     <script src="data.js"></script>
     <script src="dataTsu.js"></script>
     <script src="js/main.js"></script>

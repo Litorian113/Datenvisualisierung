@@ -1,3 +1,4 @@
+
 let tsunamiData = [
     {
       "ID": 12,

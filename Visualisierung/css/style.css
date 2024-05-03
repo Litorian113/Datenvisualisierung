@@ -27,11 +27,11 @@ body {
     font-family: 'Fira Sans', sans-serif;
 }
 #mainScreen {
-    width: 50%;
+    width: 100%;
 }
 /* IDs können mit einer Raute selektiert werden. */
 #renderer {
-    background-image: url("/Assets/naturalEarth.jpg");
+    background-image: url("/Assets/Equirectangular_projection_world_map_without_borders.svg");
       /* Full height */
 
 
@@ -91,3 +91,291 @@ body {
     z-index: 9999;
     color: black;
 }
+
+
+#yearIndicator {
+    margin-top: 10px;
+    text-align: center;
+}
+
+#bottomSlider {
+    position: absolute;
+    width: 40%;
+    background-color: white;
+    bottom: 0px;
+    z-index: 100;
+    border-radius: 15px 15px 0px 0px;
+    justify-content: center;
+    display: inline-block;
+    margin: 0 auto;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    color: black;
+    font-family: Sometype Mono;
+}
+
+#sliderContainer {
+    text-align: center;
+    margin: 20px auto;
+    width: 100%;
+}
+
+#sliderLeft {
+    width: 20%;
+    padding-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+#sliderRight {
+    width: 20%;
+    display: flex;
+    align-items: center;
+    padding-top: 20px;
+    justify-content: left;
+}
+.slider {
+    -webkit-appearance: none;
+    width: 90%;
+    height: 25px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    border-radius: 25px;
+  }
+  
+  .slider:hover {
+    opacity: 1;
+  }
+  
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: black;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #04AA6D;
+    cursor: pointer;
+  }
+
+input {
+    width: 90%;
+}
+
+/* LOADER ANIMATION  */
+
+
+.loader {
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f3f3f300;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    /* backdrop-filter: invert(80%); */
+    backdrop-filter: blur(6px);
+    background-image: url("/Assets/earthWhite.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    /* background-size: cover; */
+ 
+
+  
+    .circle {
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      opacity: 0;
+      transform: rotate(225deg);
+      animation-iteration-count: infinite;
+      animation-name: orbit;
+      animation-duration: 5.5s;
+      
+      &:after {
+        content: '';
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-radius: 10px;
+        background: #fff; /* Pick a color */
+      }
+      
+      &:nth-child(2) {  animation-delay: 340ms; }
+      &:nth-child(3) {  animation-delay: 680ms; }
+      &:nth-child(4) {  animation-delay: 920ms; }
+      &:nth-child(5) {  animation-delay: 1160ms; }
+    }
+  }
+  
+  @keyframes orbit { 
+    0%   { transform:rotate(225deg); opacity: 1;
+           animation-timing-function: ease-out; } 
+      
+    7%   { transform:rotate(345deg);
+           animation-timing-function: linear; }
+      
+    30%   { transform:rotate(455deg);
+            animation-timing-function: ease-in-out; }
+      
+    39%   { transform:rotate(690deg);
+            animation-timing-function: linear; }
+      
+    70%   { transform:rotate(815deg); opacity: 1;
+           animation-timing-function: ease-out; }
+      
+    75%   { transform:rotate(945deg); 
+           animation-timing-function: ease-out; }
+      
+    76% { transform:rotate(945deg); opacity: 0; }
+    100% { transform:rotate(945deg); opacity: 0; } 
+  }
+
+
+
+
+  .controlPanel {
+    position: fixed;
+    left: -450px; /* Versteckt das Panel außerhalb des Bildschirms */
+    top: 0;
+    width: 450px;
+    height: 100%;
+    background-color: white;
+    z-index: 200;
+    padding: 40px;
+    transition: left 0.3s ease; /* Fügt eine Transition für die linke Position hinzu */
+}
+
+#togglePanel {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px; /* Breite des Pfeil-Icons */
+    height: 30px; /* Höhe des Pfeil-Icons */
+    background-color: gray; /* Hintergrundfarbe des Pfeil-Icons */
+    z-index: 201; /* Stellt sicher, dass das Icon über dem Panel liegt */
+    cursor: pointer; /* Ändert den Mauszeiger beim Überfahren */
+    transition: left 0.3s ease; /* Fügt eine Transition für die linke Position hinzu */
+}
+
+#togglePanel::after {
+    content: '>'; /* Fügt den Pfeil hinzu */
+    font-size: 20px; /* Größe des Pfeils */
+    color: white; /* Farbe des Pfeils */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); /* Zentriert den Pfeil innerhalb des Symbols */
+}
+
+.controlPanel.open {
+    left: 0; /* Positioniert das Panel wieder sichtbar im Bildschirm */
+}
+
+#togglePanel.open {
+    left: 450px; /* Positioniert den Pfeil beim Öffnen des Panels */
+}
+
+
+  h2 {
+    color: black;
+    font-family: sometype mono;
+  }
+
+  p {
+    color: black;
+    font-family: sometype mono;
+  }
+
+
+  /* CONTROL PANELS  */
+
+  /* Rounded sliders */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 28px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  .sliderRound {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .sliderRound:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .sliderRound {
+    background-color: grey;
+  }
+  
+  input:focus + .sliderRound {
+    box-shadow: 0 0 1px grey;
+  }
+  
+  input:checked + .sliderRound:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .sliderRound.round {
+    border-radius: 34px;
+  }
+  
+  .sliderRound.round:before {
+    border-radius: 50%;
+  }
+
+  .controlBox {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .turnOnOffArea {
+    margin-top: 40px;
+  }
