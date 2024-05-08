@@ -1,13 +1,35 @@
+/*TODO : 
+- SettingsBox vervollständigen.
+- Renderer und Bild zentrieren.
+- Funktion zur allgemeinen Dot Klasse
+- Neue View um Tsunami und Earthquake Events mit einander linear zu vergleichen.
+- Slider Responsiv mit einbinden
+- Erdbebentiefe Screen mit Intensität mappen
+- Erdplatten einblend Funktion
+- Colorcode , Farben angleichen beziehungsweise schöneres Farbset wählen.
+- Wenn die Map initialisert wird, sollen die Dots der Reihe nach einfaden.
+- Slide - Shift Option hinzufügen (Wie ist das umsetzbar?)
+- Platten Highlighten wenn maus sich innerhalb befindet (eigener Screen) 
+
+1. Ui und Geschichten               Overview
+2. Slider Jahre                     Zeitlicher Ablauf
+3. Plattenhighlighten               Platten
+4. Synchrone Daten vergleichen      Zusammenhang
+5. Tiefe und Stärke                 Stärke und Tiefe
+*/
+
 let stageHeight;
 let stageWidth;
 let renderer;
 
 $(function () {
     renderer = $('#renderer');
-    stageHeight = renderer.innerHeight();
-    stageWidth = renderer.innerWidth();
+    stageHeight = $('img.worldMap').innerHeight();
+    stageWidth = $('img.worldMap').innerWidth();
+
 
     earthquakeData.forEach(function (item) {
+
         // Datum in Tag, Monat und Jahr aufteilen
         let dateParts = item["Date"].split(".");
         // Hinzufügen von Tag, Monat und Jahr zum Datensatz
@@ -30,6 +52,27 @@ $(function () {
     // Filtere die Einträge basierend auf dem Wert des Schlüssels "YEAR"
     tsunamiData = tsunamiData.filter(item => item.YEAR >= 1965 && item.YEAR <= 2016);
 
+    function addMagnitudeLevel(data) {
+        data.forEach(function (item) {
+            let magnitudeLevel;
+            const magnitude = parseFloat(item["Magnitude"]);
+
+            if (magnitude <= 6) {
+                magnitudeLevel = "low";
+            } else if (magnitude <= 6.5) {
+                magnitudeLevel = "medium";
+            } else {
+                magnitudeLevel = "high";
+            }
+
+            item["magnitudeLevel"] = magnitudeLevel;
+        });
+    }
+    // console.log("Updated earthquakeData with magnitudeLevel:");
+    // console.log(earthquakeData);
+
+    // Aufruf der Funktion, um den Datensatz earthquakeData zu aktualisieren
+    addMagnitudeLevel(earthquakeData);
 
     // prepareData();
     drawEarthquakeMap();
@@ -137,6 +180,74 @@ $(function () {
 
     }
 });
+
+
+// function fillEmptyTSIntensity(tsunamiData) {
+//     tsunamiData.forEach(tsunamiEvent => {
+//         if (tsunamiEvent.TS_INTENSITY === "") {
+//             // Generiere eine zufällige Zahl zwischen 0.0 und 1.6
+//             const randomIntensity = Math.random() * 1.6;
+//             // Runde die Zufallszahl auf zwei Dezimalstellen
+//             tsunamiEvent.TS_INTENSITY = randomIntensity.toFixed(2);
+//         }
+//     });
+// }
+
+
+
+// // Beispielaufruf der Funktion mit dem Datensatz tsunamiData
+// fillEmptyTSIntensity(tsunamiData);
+
+// function printTSIntensityList(tsunamiData) {
+//     const intensityList = []; // Eine leere Liste, um TS_INTENSITY-Werte zu speichern
+
+//     tsunamiData.forEach(tsunamiEvent => {
+//         const intensity = tsunamiEvent.TS_INTENSITY;
+//         intensityList.push(intensity); // Füge den Wert zu der Liste hinzu
+//     });
+
+//     console.log(intensityList); // Gib die Liste in der Konsole aus
+// }
+
+// // Beispielaufruf der Funktion mit dem Datensatz tsunamiData
+// printTSIntensityList(tsunamiData);
+
+// function printTSIntensityStatistics(tsunamiData) {
+//     const intensityList = []; // Eine leere Liste, um TS_INTENSITY-Werte zu speichern
+//     const intensityRanges = {}; // Ein Objekt zur Speicherung der Anzahl von Ereignissen für jeden Intensitätsbereich
+
+//     // Durchlaufe den Datensatz und fülle die Intensitätsliste sowie das Intensitätsbereichs-Objekt
+//     tsunamiData.forEach(tsunamiEvent => {
+//         const intensity = tsunamiEvent.TS_INTENSITY;
+//         intensityList.push(intensity); // Füge den Wert zu der Liste hinzu
+
+//         // Bestimme den Intensitätsbereich
+//         let range = Math.floor(intensity);
+//         range = range < 0 ? 0 : range; // Behandle negative Intensitäten als Bereich 0
+
+//         // Aktualisiere die Anzahl der Ereignisse für den aktuellen Bereich
+//         if (range in intensityRanges) {
+//             intensityRanges[range]++;
+//         } else {
+//             intensityRanges[range] = 1;
+//         }
+//     });
+
+//     // Gib die Liste der Intensitäten in der Konsole aus
+//     console.log("Liste der TS_INTENSITY-Werte:");
+//     console.log(intensityList);
+
+//     // Gib die Anzahl der Ereignisse für jeden Intensitätsbereich in der Konsole aus
+//     console.log("Anzahl der Ereignisse für jeden Intensitätsbereich:");
+//     for (const range in intensityRanges) {
+//         console.log(`Intensitätsbereich ${range} - ${parseInt(range) + 1}: ${intensityRanges[range]} Ereignisse`);
+//     }
+// }
+
+// // Beispielaufruf der Funktion mit dem Datensatz tsunamiData
+// printTSIntensityStatistics(tsunamiData);
+
+
 //     tsunamiData.forEach(tsunamiEvent => {
 //         // Überprüfe, ob der Wert von "YEAR" größer oder gleich 1965 ist
 //         if (tsunamiEvent.YEAR >= 1965) {
@@ -183,6 +294,16 @@ function drawTsunamiMap() {
             // Entfernen des negativen Vorzeichens, wenn der Wert negativ ist
             const intensity = tsunamiEvent.TS_INTENSITY < 0 ? tsunamiEvent.TS_INTENSITY * -1 : tsunamiEvent.TS_INTENSITY;
 
+            // Bestimmung des Intensitätsbereichs
+            let intensityColor = '';
+            if (intensity <= 2) {
+                intensityColor = '#99f'; // Blauton für niedrige Intensität
+            } else if (intensity > 2 && intensity <= 4) {
+                intensityColor = '#66f'; // Blauton für mittlere Intensität
+            } else {
+                intensityColor = '#00f'; // Blauton für hohe Intensität
+            }
+
             const area = gmynd.map(intensity, 0, intensityMax, 200, 200);
             const r = gmynd.circleRadius(area);
 
@@ -190,13 +311,17 @@ function drawTsunamiMap() {
             const y = gmynd.map(tsunamiEvent.LATITUDE, 90, -90, 0, stageHeight);
 
             let dot = $('<div></div>');
+            dot.attr('lat', tsunamiEvent.LATITUDE)
+            dot.attr('long', tsunamiEvent.LONGITUDE)
             dot.attr('tsunamiEvent', tsunamiEvent.YEAR);
+            dot.attr('tsunamiEvent', intensity);
             dot.addClass('dotTsu');
             dot.css({
                 'height': r,
                 'width': r,
                 'left': x,
-                'top': y
+                'top': y,
+                'background-color': intensityColor // Zuweisen des Blautons basierend auf der Intensität
             });
             renderer.append(dot);
 
@@ -245,13 +370,75 @@ function drawTsunamiMap() {
     });
 }
 
+// function categorizeTsunamiDots(tsunamiData) {
+//     const lowIntensityTsu = [];
+//     const mediumIntensityTsu = [];
+//     const highIntensityTsu = [];
+
+//     tsunamiData.forEach(tsunamiEvent => {
+//         const intensity = Math.abs(tsunamiEvent.TS_INTENSITY); // Entfernen des negativen Vorzeichens, falls vorhanden
+
+//         if (intensity <= 2) {
+//             lowIntensityTsu.push(tsunamiEvent);
+//         } else if (intensity > 2 && intensity <= 4) {
+//             mediumIntensityTsu.push(tsunamiEvent);
+//         } else {
+//             highIntensityTsu.push(tsunamiEvent);
+//         }
+//     });
+
+//     return { lowIntensityTsu, mediumIntensityTsu, highIntensityTsu };
+// }
 
 
 
 
 
+function clearRenderer() {
+    let worldMap = renderer.children().get(0);
+    $('#renderer').children().remove();
+    renderer.append(worldMap);
+}
 
+function sortMagnitude() {
+    earthquakeData.sort((a, b) => {
+        if (a.Magnitude > b.Magnitude) {
+            return 1;
+        } else {
+            return -1;
+        }
+    })
+}
 
+function filterMagnitude(magnitude) {
+    return earthquakeData.filter((a) => {
+        if (a.Magnitude > magnitude) {
+            return true;
+        } else {
+            return false;
+        }
+    })
+}
+
+function filterMagnitudeIntervall(magnitudeLow, magnitudeHigh) {
+    return earthquakeData.filter((a) => {
+        if (a.Magnitude > magnitudeLow && a.Magnitude <= magnitudeHigh) {
+            return true;
+        } else {
+            return false;
+        }
+    })
+}
+
+function filterMagnitudeIntervallOutside(magnitudeLow, magnitudeHigh) {
+    return earthquakeData.filter((a) => {
+        if (a.Magnitude <= magnitudeLow || a.Magnitude > magnitudeHigh) {
+            return true;
+        } else {
+            return false;
+        }
+    })
+}
 
 
 
@@ -260,16 +447,20 @@ function drawEarthquakeMap() {
     const magnitudeMax = gmynd.dataMax(earthquakeData, "Magnitude");
     console.log("magnitude max: " + magnitudeMax);
 
+
     earthquakeData.forEach(earthquakeEvent => {
         let area, r;
 
         // Bestimmen der Fläche und des Radius basierend auf dem Magnitude-Level
         const magnitudeLevel = earthquakeEvent.Magnitude;
-        if (magnitudeLevel <= 6) {
+        const isLowMagnitude = magnitudeLevel <= 6; // Variable für Magnitude-Level <= 6
+        const isMediumMagnitude = magnitudeLevel > 6 && magnitudeLevel <= 6.5;
+        const isHighMagnitude = magnitudeLevel > 6.5;
+        if (isLowMagnitude) {
             area = gmynd.map(magnitudeLevel, 0, 6, 15, 15); // Bereich bis 6: 10 bis 15
-        } else if (magnitudeLevel > 6 && magnitudeLevel <= 6.5) {
+        } else if (isMediumMagnitude) {
             area = gmynd.map(magnitudeLevel, 6, 6.5, 30, 30); // Bereich 6 bis 6.5: 15 bis 30
-        } else {
+        } else if (isHighMagnitude) {
             area = gmynd.map(magnitudeLevel, 6.5, magnitudeMax, 80, 80); // Bereich über 6.5: 30 bis 45
         }
         r = gmynd.circleRadius(area);
@@ -277,7 +468,30 @@ function drawEarthquakeMap() {
         const x = gmynd.map(earthquakeEvent.Longitude, -180, 180, 0, stageWidth);
         const y = gmynd.map(earthquakeEvent.Latitude, 90, -90, 0, stageHeight);
 
+
+
+
         let dot = $('<div></div>');
+
+        if (isLowMagnitude) {
+            dot.addClass('lowMagnitude');
+            dot.attr('isLowMagnitude', 'true');
+        } else {
+            dot.attr('isLowMagnitude', 'false');
+        }
+        if (isMediumMagnitude) {
+            dot.addClass('isMediumMagnitude');
+            dot.attr('isMediumMagnitude', 'true');
+        } else {
+            dot.attr('isMediumMagnitude', 'false');
+        }
+        if (isHighMagnitude) {
+            dot.addClass('isHighMagnitude');
+            dot.attr('isHighMagnitude', 'true');
+        } else {
+            dot.attr('isHighMagnitude', 'false');
+        }
+
         dot.attr('earthquakeEvent', magnitudeLevel);
 
         // Event-Handler für mouseover, mouseout und click
@@ -297,12 +511,12 @@ function drawEarthquakeMap() {
         })
 
         // Farbzuweisung basierend auf dem Magnitude-Level
-        if (magnitudeLevel <= 6) {
-            dot.css('background-color', 'yellow')
+        if (isLowMagnitude) {
+            dot.css('background-color', '#FFBB00')
         } else if (magnitudeLevel > 6 && magnitudeLevel <= 6.5) {
-            dot.css('background-color', 'orange')
+            dot.css('background-color', '#FB6542')
         } else {
-            dot.css('background-color', 'red')
+            dot.css('background-color', '#FF0000')
         }
 
         // Festlegen der Größe und Position des Punktes
@@ -314,6 +528,8 @@ function drawEarthquakeMap() {
         });
 
         renderer.append(dot);
+        // console.log(renderer);
+        // renderer.clear();
     });
 
     // Erzeugen und Positionieren der Info-Box
@@ -347,6 +563,7 @@ function drawEarthquakeMap() {
         $('#earthquakeInfoBox').hide();
     });
 }
+
 
 
 $(document).ready(function () {

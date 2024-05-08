@@ -8,6 +8,8 @@
     <script src="lib/gmynd.js"></script>
     <link rel="stylesheet" href="css/style.css">
 
+
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sometype+Mono:ital,wght@0,400..700;1,400..700&display=swap"
@@ -32,7 +34,7 @@
                     <h2>Tsunami and Earthquake Events</h2>
                 </div>
                 <div class="turnOnOffArea">
-                    <div class="controlBox">
+                    <div class="controlBox" id="toggleSwitchEarth">
                         <div>
                             <p>Earthquake</p>
                         </div>
@@ -43,7 +45,7 @@
                             </label>
                         </div>
                     </div>
-                    <div class="controlBox">
+                    <div class="controlBox" id="toggleSwitch">
                         <div>
                             <p>Tsunami</p>
                         </div>
@@ -54,6 +56,29 @@
                             </label>
                         </div>
                     </div>
+                    <div class="hr">
+                        <hr>
+                    </div>
+
+                    <div class="controlButtons">
+                        <div class="boxbox" id="intesity-low">
+                            <div>
+                                <button class="btn"><img src="/Assets/earthquake_24dp_FILL0_wght400_GRAD0_opsz24.png"></button>
+                            </div>
+                        </div>
+                        <div class="boxbox" id="intesity-medium">
+                            <div>
+                                <button class="btn"><img src="/Assets/earthquake_24dp_FILL0_wght400_GRAD0_opsz24.png"></button>
+                            </div>
+                        </div>
+                        <div class="boxbox" id="intesity-high">
+                            <div>
+                                <button class="btn"><img src="/Assets/earthquake_24dp_FILL0_wght400_GRAD0_opsz24.png"></button>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
             <div id="togglePanel">
@@ -74,6 +99,7 @@
             </div>
         </div>
         <div id="renderer">
+            <img class="worldMap" src="/Assets/Equirectangular_projection_world_map_without_borders.svg">
             <!-- <div id="hoverLabel"></div>
             <div id="clickLabel"></div> -->
         </div>
@@ -85,9 +111,11 @@
             loader.style.display = 'none';
         });
     </script>
+    <script src="js/controlPanel.js"></script>
     <script src="data.js"></script>
     <script src="dataTsu.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/dotCreation.js"></script>
 </body>
 
 </html>
