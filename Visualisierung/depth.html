@@ -6,7 +6,7 @@
     <title>Aufgabe 5</title>
     <script src="lib/jquery.min.js"></script>
     <script src="lib/gmynd.js"></script>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/styleDepth.css">
 
 
     
@@ -35,22 +35,11 @@
     </div>
     <div id="mainScreen">
 
-        <div id="bottomSlider">
-            <div id="sliderLeft">
-                <span class="sliderScale">1965</span>
-            </div>
-            <div id="sliderContainer">
-                <div id="yearIndicator">Selected Year: <span id="currentYear">1965</span></div>
-                <input class="slider" type="range" min="1965" max="2016" value="1965" id="yearRange">
-            </div>
-            <div id="sliderRight">
-                <span class="sliderScale">2016</span>
-            </div>
-        </div>
         <div id="renderer">
-            <img class="worldMap" src="/Assets/Equirectangular_projection_world_map_without_borders.svg">
-            <!-- <div id="hoverLabel"></div>
-            <div id="clickLabel"></div> -->
+            <div id="earthquakeInfoBox">
+                
+            </div>
+
         </div>
     </div>
     <script>
@@ -60,10 +49,8 @@
              loader.style.display = 'none';
         });
     </script>
-    <script src="data/data.js"></script>
-    <script src="data/dataTsu.js"></script>
-    <script src="js/main2.js"></script>
-    <script src="js/slider.js"></script>
+    <script src="data/depth.js"></script>
+    <script src="js/depth.js"></script>
 </body>
 
 </html>
