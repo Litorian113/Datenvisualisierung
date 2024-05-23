@@ -19,6 +19,16 @@
 </head>
 
 <body>
+
+    <!-- Navigationsleiste -->
+    <div class="navbar">
+        <a class="active" href="index.html">Overview</a>
+        <a href="slider.html">Time Beam</a>
+        <a href="comparison.html">Comparison</a>
+        <a href="depth.html">Depth and Intensity</a>
+      </div>
+
+
     <div class="loader" id="loaderContainer">
         <div class="circle"></div>
         <div class="circle"></div>
@@ -28,7 +38,7 @@
     </div>
     <div id="mainScreen">
 
-        <div class="controlPanel">
+        <div class="controlPanel open">
             <div>
                 <div>
                     <h2>Tsunami and Earthquake Events</h2>
@@ -36,7 +46,7 @@
                 <div class="turnOnOffArea">
                     <div class="controlBox" id="toggleSwitchEarth">
                         <div>
-                            <p>Earthquake</p>
+                            <p class="controlPanelText">Earthquake</p>
                         </div>
                         <div>
                             <label class="switch">
@@ -47,7 +57,7 @@
                     </div>
                     <div class="controlBox" id="toggleSwitch">
                         <div>
-                            <p>Tsunami</p>
+                            <p class="controlPanelText">Tsunami</p>
                         </div>
                         <div>
                             <label class="switch">
@@ -81,27 +91,17 @@
 
                 </div>
             </div>
-            <div id="togglePanel">
+            <div id="togglePanel" class="open">
                 <!-- Pfeil-Icon -->
             </div>
 
         </div>
-        <div id="bottomSlider">
-            <div id="sliderLeft">
-                <span class="sliderScale">1965</span>
-            </div>
-            <div id="sliderContainer">
-                <div id="yearIndicator">Selected Year: <span id="currentYear">1965</span></div>
-                <input class="slider" type="range" min="1965" max="2016" value="1965" id="yearRange">
-            </div>
-            <div id="sliderRight">
-                <span class="sliderScale">2016</span>
-            </div>
-        </div>
-        <div id="renderer">
-            <img class="worldMap" src="/Assets/Equirectangular_projection_world_map_without_borders.svg">
+        <div id="mapContainer">
+            <div id="renderer">
+                <img class="worldMap" src="/Assets/Equirectangular_projection_world_map_without_borders.svg">
             <!-- <div id="hoverLabel"></div>
             <div id="clickLabel"></div> -->
+            </div>
         </div>
     </div>
     <script>
@@ -112,10 +112,11 @@
         });
     </script>
     <script src="js/controlPanel.js"></script>
-    <script src="data.js"></script>
-    <script src="dataTsu.js"></script>
+    <script src="data/data.js"></script>
+    <script src="data/dataTsu.js"></script>
     <script src="js/main.js"></script>
     <script src="js/dotCreation.js"></script>
+
 </body>
 
 </html>

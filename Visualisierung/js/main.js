@@ -11,12 +11,14 @@
 - Slide - Shift Option hinzufügen (Wie ist das umsetzbar?)
 - Platten Highlighten wenn maus sich innerhalb befindet (eigener Screen) 
 
-1. Ui und Geschichten               Overview
-2. Slider Jahre                     Zeitlicher Ablauf
+1. Ui und Geschichten               Overview 
+2. Slider Jahre                     Zeitlicher Ablauf Time beam
 3. Plattenhighlighten               Platten
-4. Synchrone Daten vergleichen      Zusammenhang
-5. Tiefe und Stärke                 Stärke und Tiefe
+4. Synchrone Daten vergleichen      Zusammenhang Comparison
+5. Tiefe und Stärke                 Stärke und Tiefe Deepth Intensity
 */
+
+// Eine TsuDot Klasse und eine EarthDot Klasse, beinhaltet das Zeichenverhalten und Filter etc? 
 
 let stageHeight;
 let stageWidth;
@@ -77,211 +79,14 @@ $(function () {
     // prepareData();
     drawEarthquakeMap();
     drawTsunamiMap();
-});
-
-$(function () {
-    let stageHeight = $('#renderer').innerHeight();
-    let stageWidth = $('#renderer').innerWidth();
-
-    // Initialanzeige der Erdbeben-Events für das Jahr 1965
-    // displayEarthquakes(1965);
-
-    // Globale Variablen für gefilterte Daten initialisieren
-    let filteredEarthquakeData = [];
-    let filteredTsunamiData = [];
-
-    // Filterfunktion aufrufen, um Daten beim Laden der Seite zu filtern
-    filterData();
-
-    // Range Slider Event-Handler
-    $('#yearRange').on('input', function () {
-        let selectedYear = $(this).val();
-        $('#currentYear').text(selectedYear);
-        // Funktion aufrufen, um Erdbeben- und Tsunami-Events für das ausgewählte Jahr anzuzeigen
-        displayEvents(selectedYear);
-    });
-
-    // Funktion zum Filtern der Daten
-    function filterData() {
-        // Erdbeben-Daten filtern
-        filteredEarthquakeData = earthquakeData.filter(earthquakeEvent => {
-            let eventYear = parseInt(earthquakeEvent.YEAR);
-            return eventYear >= 1965 && eventYear <= 2016;
-        });
-
-        // Tsunami-Daten filtern
-        filteredTsunamiData = tsunamiData.filter(tsunamiEvent => {
-            let eventYear = parseInt(tsunamiEvent.YEAR);
-            return eventYear >= 1965 && eventYear <= 2016;
-        });
-    }
-
-    // Funktion zum Anzeigen der Erdbeben- und Tsunami-Events basierend auf dem ausgewählten Jahr
-    function displayEvents(selectedYear) {
-        console.log("Selected Year:", selectedYear);
-        // Vorhandene Punkte entfernen, die nicht dem ausgewählten Jahr entsprechen
-        $('.dot, .dotTsu').remove();
-
-        // Erdbeben-Events für das ausgewählte Jahr anzeigen
-        filteredEarthquakeData.forEach(earthquakeEvent => {
-            if (earthquakeEvent.YEAR === selectedYear) {
-                // Anzeige des Erdbeben-Events
-                const area = gmynd.map(earthquakeEvent.Magnitude, 0, 10, 80, 80);
-                const r = gmynd.circleRadius(area);
-
-                const x = gmynd.map(earthquakeEvent.Longitude, -180, 180, 0, stageWidth);
-                const y = gmynd.map(earthquakeEvent.Latitude, 90, -90, 0, stageHeight);
-
-                let dot = $('<div></div>');
-                dot.attr('earthquakeEvent', earthquakeEvent.Magnitude);
-                let magnitudeLevel = earthquakeEvent.Magnitude;
-                if (magnitudeLevel <= 6) {
-                    dot.css('background-color', 'yellow')
-                } else if (magnitudeLevel > 6 && magnitudeLevel <= 6.5) {
-                    dot.css('background-color', 'orange')
-                } else {
-                    dot.css('background-color', 'red')
-                }
-                dot.addClass('dot');
-                dot.css({
-                    'height': r,
-                    'width': r,
-                    'left': x,
-                    'top': y
-                });
-                $('#renderer').append(dot);
-            }
-        });
-
-        // Tsunami-Events für das ausgewählte Jahr anzeigen
-        filteredTsunamiData.forEach(tsunamiEvent => {
-            if (tsunamiEvent.YEAR == selectedYear) {
-                // Anzeige des Tsunami-Events
-                const intensityMax = gmynd.dataMax(filteredTsunamiData, "TS_INTENSITY");
-
-                const area = gmynd.map(tsunamiEvent.TS_INTENSITY, 0, intensityMax, 200, 200);
-                const r = gmynd.circleRadius(area);
-
-                const x = gmynd.map(tsunamiEvent.LONGITUDE, -180, 180, 0, stageWidth);
-                const y = gmynd.map(tsunamiEvent.LATITUDE, 90, -90, 0, stageHeight);
-
-                let dot = $('<div></div>');
-                dot.attr('tsunamiEvent', tsunamiEvent.TS_INTENSITY);
-                dot.addClass('dotTsu');
-                dot.css({
-                    'height': r,
-                    'width': r,
-                    'left': x,
-                    'top': y
-                });
-                $('#renderer').append(dot);
-            }
-        });
-
-    }
+    
 });
 
 
-// function fillEmptyTSIntensity(tsunamiData) {
-//     tsunamiData.forEach(tsunamiEvent => {
-//         if (tsunamiEvent.TS_INTENSITY === "") {
-//             // Generiere eine zufällige Zahl zwischen 0.0 und 1.6
-//             const randomIntensity = Math.random() * 1.6;
-//             // Runde die Zufallszahl auf zwei Dezimalstellen
-//             tsunamiEvent.TS_INTENSITY = randomIntensity.toFixed(2);
-//         }
-//     });
-// }
 
 
 
-// // Beispielaufruf der Funktion mit dem Datensatz tsunamiData
-// fillEmptyTSIntensity(tsunamiData);
 
-// function printTSIntensityList(tsunamiData) {
-//     const intensityList = []; // Eine leere Liste, um TS_INTENSITY-Werte zu speichern
-
-//     tsunamiData.forEach(tsunamiEvent => {
-//         const intensity = tsunamiEvent.TS_INTENSITY;
-//         intensityList.push(intensity); // Füge den Wert zu der Liste hinzu
-//     });
-
-//     console.log(intensityList); // Gib die Liste in der Konsole aus
-// }
-
-// // Beispielaufruf der Funktion mit dem Datensatz tsunamiData
-// printTSIntensityList(tsunamiData);
-
-// function printTSIntensityStatistics(tsunamiData) {
-//     const intensityList = []; // Eine leere Liste, um TS_INTENSITY-Werte zu speichern
-//     const intensityRanges = {}; // Ein Objekt zur Speicherung der Anzahl von Ereignissen für jeden Intensitätsbereich
-
-//     // Durchlaufe den Datensatz und fülle die Intensitätsliste sowie das Intensitätsbereichs-Objekt
-//     tsunamiData.forEach(tsunamiEvent => {
-//         const intensity = tsunamiEvent.TS_INTENSITY;
-//         intensityList.push(intensity); // Füge den Wert zu der Liste hinzu
-
-//         // Bestimme den Intensitätsbereich
-//         let range = Math.floor(intensity);
-//         range = range < 0 ? 0 : range; // Behandle negative Intensitäten als Bereich 0
-
-//         // Aktualisiere die Anzahl der Ereignisse für den aktuellen Bereich
-//         if (range in intensityRanges) {
-//             intensityRanges[range]++;
-//         } else {
-//             intensityRanges[range] = 1;
-//         }
-//     });
-
-//     // Gib die Liste der Intensitäten in der Konsole aus
-//     console.log("Liste der TS_INTENSITY-Werte:");
-//     console.log(intensityList);
-
-//     // Gib die Anzahl der Ereignisse für jeden Intensitätsbereich in der Konsole aus
-//     console.log("Anzahl der Ereignisse für jeden Intensitätsbereich:");
-//     for (const range in intensityRanges) {
-//         console.log(`Intensitätsbereich ${range} - ${parseInt(range) + 1}: ${intensityRanges[range]} Ereignisse`);
-//     }
-// }
-
-// // Beispielaufruf der Funktion mit dem Datensatz tsunamiData
-// printTSIntensityStatistics(tsunamiData);
-
-
-//     tsunamiData.forEach(tsunamiEvent => {
-//         // Überprüfe, ob der Wert von "YEAR" größer oder gleich 1965 ist
-//         if (tsunamiEvent.YEAR >= 1965) {
-//             const area = gmynd.map(tsunamiEvent.TS_INTENSITY, 0, intensityMax, 200, 200);
-//             const r = gmynd.circleRadius(area);
-
-//             const x = gmynd.map(tsunamiEvent.LONGITUDE, -180, 180, 0, stageWidth);
-//             const y = gmynd.map(tsunamiEvent.LATITUDE, 90, -90, 0, stageHeight);
-
-//             let dot = $('<div></div>');
-//             dot.attr('tsunamiEvent', tsunamiEvent.TS_INTENSITY);
-//             dot.addClass('dotTsu');
-//             dot.css({
-//                 'height': r,
-//                 'width': r,
-//                 'left': x,
-//                 'top': y
-//             });
-//             renderer.append(dot);
-//         }
-//     });
-// }
-
-
-// function prepareData() {
-
-//     positionData.forEach(posCountry => {
-//         populationData.forEach(popCountry => {
-//             if (posCountry.alpha3Code === popCountry.alpha3Code) {
-//                 posCountry.population = popCountry.population;
-//             }
-//         });
-//     });
-// }
 function drawTsunamiMap() {
     // Hinzufügen der Info-Box für Tsunamis zum HTML-Dokument
     $('body').append('<div id="tsunamiInfoBox"></div>');
@@ -370,25 +175,7 @@ function drawTsunamiMap() {
     });
 }
 
-// function categorizeTsunamiDots(tsunamiData) {
-//     const lowIntensityTsu = [];
-//     const mediumIntensityTsu = [];
-//     const highIntensityTsu = [];
 
-//     tsunamiData.forEach(tsunamiEvent => {
-//         const intensity = Math.abs(tsunamiEvent.TS_INTENSITY); // Entfernen des negativen Vorzeichens, falls vorhanden
-
-//         if (intensity <= 2) {
-//             lowIntensityTsu.push(tsunamiEvent);
-//         } else if (intensity > 2 && intensity <= 4) {
-//             mediumIntensityTsu.push(tsunamiEvent);
-//         } else {
-//             highIntensityTsu.push(tsunamiEvent);
-//         }
-//     });
-
-//     return { lowIntensityTsu, mediumIntensityTsu, highIntensityTsu };
-// }
 
 
 

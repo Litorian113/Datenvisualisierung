@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aufgabe 5</title>
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/gmynd.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+
+
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sometype+Mono:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
+
+
+</head>
+
+<body>
+
+    <div class="navbar">
+        <a href="index.html">Overview</a>
+        <a class="active" href="slider.html">Time Beam</a>
+        <a href="comparison.html">Comparison</a>
+        <a href="depth.html">Depth and Intensity</a>
+      </div>
+    <div class="loader" id="loaderContainer">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
+    <div id="mainScreen">
+
+        <div id="bottomSlider">
+            <div id="sliderLeft">
+                <span class="sliderScale">1965</span>
+            </div>
+            <div id="sliderContainer">
+                <div id="yearIndicator">Selected Year: <span id="currentYear">1965</span></div>
+                <input class="slider" type="range" min="1965" max="2016" value="1965" id="yearRange">
+            </div>
+            <div id="sliderRight">
+                <span class="sliderScale">2016</span>
+            </div>
+        </div>
+        <div id="renderer">
+            <img class="worldMap" src="/Assets/Equirectangular_projection_world_map_without_borders.svg">
+            <!-- <div id="hoverLabel"></div>
+            <div id="clickLabel"></div> -->
+        </div>
+    </div>
+    <script>
+        // Sobald die Seite vollständig geladen ist, den Loader ausblenden
+         window.addEventListener('load', function () {
+            var loader = document.getElementById('loaderContainer');
+             loader.style.display = 'none';
+        });
+    </script>
+    <script src="data/data.js"></script>
+    <script src="data/dataTsu.js"></script>
+    <script src="js/timeBeam.js"></script>
+</body>
+
+</html>
