@@ -1,7 +1,7 @@
 body {
     background-color: rgb(20, 20, 30);
     color:white;
-    font-family: 'Fira Sans', sans-serif;
+    font-family: sometype mono;
     margin: 0;
     padding: 0;
 }
@@ -18,8 +18,8 @@ body {
     position: absolute;
     background-color: red;
     border-radius: 50%;
-    border-color: black;
-    border-width: 2px;
+    /* border-color: black;
+    border-width: 2px; */
     /* -webkit-filter: drop-shadow(2px 2px 1px #2b5af7b3);
     filter: drop-shadow(0px 0px 5px #2b57f7e1); */
 }

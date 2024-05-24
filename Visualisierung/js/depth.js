@@ -72,17 +72,12 @@ function drawSunBurst(data) {
         mouseover: function (event) {
             const depth = $(this).attr('earthquakeEvent');
             const magnitude = $(this).attr('earthquakeMagnitude');
-            const mouseX = event.pageX;
-            const mouseY = event.pageY;
-            const boxWidth = $('#earthquakeInfoBox').outerWidth();
-            const boxHeight = $('#earthquakeInfoBox').outerHeight();
+            const posX = 20; // Fixed position on the left side
+            const posY = event.pageY - 20; // Position based on the mouse Y coordinate
 
-            const posX = mouseX + 20;
-            const posY = mouseY - boxHeight / 2;
-
-            $('#earthquakeInfoBox').text(`Depth: ${depth} km, Magnitude: ${magnitude}`).css({
-                'left': posX,
-                'top': posY,
+            $('#earthquakeInfoBox').html(`Depth: ${depth} km<br>Magnitude: ${magnitude}`).css({
+                'left': `${posX}px`,
+                'top': `${posY}px`,
                 'display': 'block'
             });
         },
@@ -118,3 +113,24 @@ function getDotColor(depth, magnitude) {
         return magnitude < 6.5 ? '#FF4601' : (magnitude < 7.2 ? '#FA6F00' : '#FF9901');
     }
 }
+
+// Adding CSS for the fixed position div
+$('<style>')
+    .prop('type', 'text/css')
+    .html(`
+        #earthquakeInfoBox {
+            position: fixed;
+            z-index: 1000;
+            background-color: rgb(20, 20, 30);
+            color: white;
+            font-family: 'sometype mono', monospace;
+            padding: 5px;
+            display: none;
+            pointer-events: none;
+            margin-left: 200px;
+        }
+    `)
+    .appendTo('head');
+
+// Adding the fixed position div to the body
+$('body').append('<div id="earthquakeInfoBox"></div>');
