@@ -6,9 +6,9 @@
     <title>Aufgabe 5</title>
     <script src="lib/jquery.min.js"></script>
     <script src="lib/gmynd.js"></script>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/styleComparison.css">
 
-
+    <link rel="icon" type="image/x-icon" href="/Assets/favicon.ico">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,12 +20,15 @@
 
 <body>
 
+    <!-- Navigationsleiste -->
     <div class="navbar">
         <a href="index.html">Overview</a>
         <a href="slider.html">Time Beam</a>
         <a class="active" href="comparison.html">Comparison</a>
         <a href="depth.html">Depth and Intensity</a>
       </div>
+
+
     <div class="loader" id="loaderContainer">
         <div class="circle"></div>
         <div class="circle"></div>
@@ -34,7 +37,6 @@
         <div class="circle"></div>
     </div>
     <div id="mainScreen">
-
         <div id="bottomSlider">
             <div id="sliderLeft">
                 <span class="sliderScale">1965</span>
@@ -47,23 +49,26 @@
                 <span class="sliderScale">2016</span>
             </div>
         </div>
-        <div id="renderer">
-            <img class="worldMap" src="/Assets/Equirectangular_projection_world_map_without_borders.svg">
+
+        </div>
+        <div id="mapContainer">
+            <div id="renderer">
             <!-- <div id="hoverLabel"></div>
             <div id="clickLabel"></div> -->
+            </div>
         </div>
     </div>
     <script>
         // Sobald die Seite vollständig geladen ist, den Loader ausblenden
-         window.addEventListener('load', function () {
+        window.addEventListener('load', function () {
             var loader = document.getElementById('loaderContainer');
-             loader.style.display = 'none';
+            loader.style.display = 'none';
         });
     </script>
     <script src="data/data.js"></script>
     <script src="data/dataTsu.js"></script>
-    <script src="js/main2.js"></script>
-    <script src="js/slider.js"></script>
+    <script src="js/comparison.js"></script>
+
 </body>
 
 </html>

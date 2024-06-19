@@ -1,33 +1,32 @@
-/*TODO : 
-- SettingsBox vervollständigen.
-- Renderer und Bild zentrieren.
-- Funktion zur allgemeinen Dot Klasse
-- Neue View um Tsunami und Earthquake Events mit einander linear zu vergleichen.
-- Slider Responsiv mit einbinden
-- Erdbebentiefe Screen mit Intensität mappen
-- Erdplatten einblend Funktion
-- Colorcode , Farben angleichen beziehungsweise schöneres Farbset wählen.
-- Wenn die Map initialisert wird, sollen die Dots der Reihe nach einfaden.
-- Slide - Shift Option hinzufügen (Wie ist das umsetzbar?)
-- Platten Highlighten wenn maus sich innerhalb befindet (eigener Screen) 
-
-1. Ui und Geschichten               Overview 
-2. Slider Jahre                     Zeitlicher Ablauf Time beam
-3. Plattenhighlighten               Platten
-4. Synchrone Daten vergleichen      Zusammenhang Comparison
-5. Tiefe und Stärke                 Stärke und Tiefe Deepth Intensity
-*/
-
-// Eine TsuDot Klasse und eine EarthDot Klasse, beinhaltet das Zeichenverhalten und Filter etc? 
-
 let stageHeight;
 let stageWidth;
 let renderer;
+let sliderDiv;
+
 
 $(function () {
     renderer = $('#renderer');
-    stageHeight = $('img.worldMap').innerHeight();
-    stageWidth = $('img.worldMap').innerWidth();
+    stageHeight = renderer.innerHeight();
+    stageWidth = renderer.innerWidth();
+    sliderDiv = $('#slider-div');
+
+    let image = $("#slider-image");
+    // get width and height of the image
+
+    let imageWidth = image.width();
+    let imageHeight = image.height();
+    // calculate width and height for the slider and the image
+    let sliderWidth = stageWidth;
+    let sliderHeight = (2 * sliderWidth * imageHeight) / imageWidth;
+    // fit slider to window width
+    renderer.css({
+        width: sliderWidth + "px",
+        height: sliderHeight + "px",
+    });
+    image.css({
+        width: sliderWidth * 2 + "px",
+        height: sliderHeight + "px",
+    });
 
 
     earthquakeData.forEach(function (item) {
@@ -45,8 +44,6 @@ $(function () {
             year += 2000;
         }
         item["YEAR"] = year.toString(); // Konvertiere das Jahr zurück in einen String und speichere es im Datensatz
-        // Löschen des ursprünglichen Datums, falls erforderlich
-        // delete item["Date"];
     });
     // Sortiere den Datensatz nach dem Wert des Schlüssels "YEAR" aufsteigend
     tsunamiData.sort((a, b) => a.YEAR - b.YEAR);
@@ -70,21 +67,149 @@ $(function () {
             item["magnitudeLevel"] = magnitudeLevel;
         });
     }
-    // console.log("Updated earthquakeData with magnitudeLevel:");
-    // console.log(earthquakeData);
 
     // Aufruf der Funktion, um den Datensatz earthquakeData zu aktualisieren
     addMagnitudeLevel(earthquakeData);
 
     // prepareData();
+
+
     drawEarthquakeMap();
     drawTsunamiMap();
-    
+
+    let copy = sliderDiv.clone();
+    copy.css({
+        left: sliderWidth + "px",
+    });
+    renderer.append(copy);
+
+    let dragging = false;
+    let clickX, actX;
+
+    renderer.on("mousedown", function (event) {
+        // Prevent default behavior. In this case, prevent dragging of the image
+        event.preventDefault();
+
+        // Get the current position of the slider
+        actX = renderer.position().left;
+        // Get the mouse position relative to the window
+        clickX = event.clientX;
+
+        // Now we are in dragging mode
+        dragging = true;
+    });
+
+    $(window).on("mousemove", handleMouseMove);
+
+    function handleMouseMove(event) {
+        if (!dragging) return;
+
+        // calculate the new position of the slider
+        let moveX = event.clientX - clickX;
+        let newX = actX + moveX;
+
+        // check if the slider is out of bounds
+        if (newX < -stageWidth) {
+            newX += stageWidth;
+        } else if (newX > 0) {
+            newX -= stageWidth;
+        }
+
+        // set the slider position
+        renderer.css({
+            left: newX + "px",
+        });
+    }
+
+    $(window).on("mouseup", handleMouseUp);
+
+    function handleMouseUp() {
+        dragging = false;
+    }
+
+    // Mouseover-Effekt für Tsunami-Punkte
+$("#renderer").on("mouseover", ".dotTsu", function (event) {
+    const date = $(this).attr('date');
+    const cause = $(this).attr('cause');
+    const intensity = $(this).attr('tsunamiIntensity');
+    const comments = $(this).attr('comments');
+    const mouseX = event.pageX;
+    const mouseY = event.pageY;
+    const box = $('#tsunamiInfoBox');
+    const screenWidth = $(window).width();
+    const screenHeight = $(window).height();
+
+    // Setzen des Textinhalts der Info-Box
+    $('#tsunamiInfoBox').html('<b>Date:</b> ' + date + '<br><b>Cause:</b> ' + cause + '<br><b>Intensity:</b> ' + intensity + '<br><b>Comments:</b> ' + comments);
+
+    // Anpassen der Position der Info-Box
+    let leftPosition = mouseX + 20; // Startposition rechts vom Cursor
+    let topPosition = mouseY + 20; // Startposition unterhalb des Cursors
+
+    // Überprüfen, ob genügend Platz rechts vom Cursor vorhanden ist
+    if (leftPosition + box.outerWidth() > screenWidth) {
+        leftPosition = screenWidth - box.outerWidth() - 20; // Position links vom Cursors
+    }
+
+    // Überprüfen, ob genügend Platz unterhalb des Cursors vorhanden ist
+    if (topPosition + box.outerHeight() > screenHeight) {
+        topPosition = screenHeight - box.outerHeight() - 20; // Position oberhalb des Cursors
+    }
+
+    // Anpassen der Position der Info-Box
+    $('#tsunamiInfoBox').css({
+        'left': leftPosition,
+        'top': topPosition,
+        'display': 'block' // Anzeigen der Box
+    });
 });
 
+// Mouseout-Effekt für Tsunami-Punkte
+$("#renderer").on("mouseout", ".dotTsu", function () {
+    // Ausblenden der Info-Box beim Verlassen des Tsunami-Punkts
+    $('#tsunamiInfoBox').css('display', 'none');
+        });
 
 
-
+        $("#renderer").on("mouseover", ".dot", function (event) {
+            const magnitude = $(this).attr('earthquakeEvent');
+            const date = $(this).attr('Date');
+            const type = $(this).attr('Type');
+            const depth = $(this).attr('Depth');
+            const mouseX = event.pageX;
+            const mouseY = event.pageY;
+            const box = $('#earthquakeInfoBox');
+            const screenWidth = $(window).width();
+            const screenHeight = $(window).height();
+        
+            // Setzen des Textinhalts der Info-Box
+            $('#earthquakeInfoBox').html('<b>Date:</b> ' + date + '<br><b>Type:</b> ' + type + '<br><b>Magnitude:</b> ' + magnitude +  '<br><b>Depth:</b> ' + depth);
+    
+        // Anpassen der Position der Info-Box
+        let leftPosition = mouseX + 20; // Startposition rechts vom Cursor
+        let topPosition = mouseY + 20; // Startposition unterhalb des Cursors
+    
+        // Überprüfen, ob genügend Platz rechts vom Cursor vorhanden ist
+        if (leftPosition + box.outerWidth() > screenWidth) {
+            leftPosition = screenWidth - box.outerWidth() - 20; // Position links vom Cursors
+        }
+    
+        // Überprüfen, ob genügend Platz unterhalb des Cursors vorhanden ist
+        if (topPosition + box.outerHeight() > screenHeight) {
+            topPosition = screenHeight - box.outerHeight() - 20; // Position oberhalb des Cursors
+        }
+    
+        // Anpassen der Position der Info-Box
+        $('#earthquakeInfoBox').css({
+            'left': leftPosition,
+            'top': topPosition,
+            'display': 'block' // Anzeigen der Box
+        });
+    }).mouseout(function () {
+        // Ausblenden der Info-Box beim Verlassen des Earthquake-Punkts
+        $('#earthquakeInfoBox').css('display', 'none');
+    });
+});
 
 
 function drawTsunamiMap() {
@@ -97,16 +222,27 @@ function drawTsunamiMap() {
         // Überprüfe, ob der Wert von "YEAR" größer oder gleich 1965 ist
         if (tsunamiEvent.YEAR >= 1965) {
             // Entfernen des negativen Vorzeichens, wenn der Wert negativ ist
-            const intensity = tsunamiEvent.TS_INTENSITY < 0 ? tsunamiEvent.TS_INTENSITY * -1 : tsunamiEvent.TS_INTENSITY;
+            let intensity;
+            if (tsunamiEvent.TS_INTENSITY < 0) {
+                intensity = tsunamiEvent.TS_INTENSITY * -1; // Positiver Wert, wenn negativ
+            } else if (!tsunamiEvent.TS_INTENSITY) {
+                intensity = (0.5 + Math.random() * 2.5).toFixed(2); // Zufällige Intensität zwischen 0 und 3, wenn der Wert leer ist
+            } else {
+                intensity = tsunamiEvent.TS_INTENSITY; // Originalwert, wenn weder negativ noch leer
+            }
 
             // Bestimmung des Intensitätsbereichs
             let intensityColor = '';
+            let intensityClass = '';
             if (intensity <= 2) {
                 intensityColor = '#99f'; // Blauton für niedrige Intensität
+                intensityClass = 'lowIntensity';
             } else if (intensity > 2 && intensity <= 4) {
                 intensityColor = '#66f'; // Blauton für mittlere Intensität
+                intensityClass = 'isMediumIntensity';
             } else {
                 intensityColor = '#00f'; // Blauton für hohe Intensität
+                intensityClass = 'isHighIntensity';
             }
 
             const area = gmynd.map(intensity, 0, intensityMax, 200, 200);
@@ -119,8 +255,16 @@ function drawTsunamiMap() {
             dot.attr('lat', tsunamiEvent.LATITUDE)
             dot.attr('long', tsunamiEvent.LONGITUDE)
             dot.attr('tsunamiEvent', tsunamiEvent.YEAR);
-            dot.attr('tsunamiEvent', intensity);
+            dot.attr('tsunamiIntensity', intensity);
+
+            // Informationen in Attribute speichern, um in on 
+            dot.attr('date', tsunamiEvent.DAY + '.' + tsunamiEvent.MONTH + '.' + tsunamiEvent.YEAR);
+            dot.attr('cause', tsunamiEvent.CAUSE);
+            dot.attr('comments', tsunamiEvent.COMMENTS);
+            
+            // Adding class for intensity level
             dot.addClass('dotTsu');
+            dot.addClass(intensityClass);
             dot.css({
                 'height': r,
                 'width': r,
@@ -128,58 +272,10 @@ function drawTsunamiMap() {
                 'top': y,
                 'background-color': intensityColor // Zuweisen des Blautons basierend auf der Intensität
             });
-            renderer.append(dot);
-
-            // Mouseover-Effekt für Tsunami-Punkte
-            dot.mouseover(function (event) {
-                const date = tsunamiEvent.DAY + '.' + tsunamiEvent.MONTH + '.' + tsunamiEvent.YEAR;
-                const cause = tsunamiEvent.CAUSE;
-                const comments = tsunamiEvent.COMMENTS;
-                const mouseX = event.pageX;
-                const mouseY = event.pageY;
-                const box = $('#tsunamiInfoBox');
-                const screenWidth = $(window).width();
-                const screenHeight = $(window).height();
-
-                // Setzen des Textinhalts der Info-Box
-                $('#tsunamiInfoBox').html('<b>Date:</b> ' + date + '<br><b>Cause:</b> ' + cause + '<br><b>Intensity:</b> ' + intensity + '<br><b>Comments:</b> ' + comments);
-
-                // Anpassen der Position der Info-Box
-                let leftPosition = mouseX + 20; // Startposition links vom Cursor
-                let topPosition = mouseY + 20; // Startposition oberhalb des Cursors
-
-                // Überprüfen, ob genügend Platz rechts vom Cursor vorhanden ist
-                if (leftPosition + box.outerWidth() > screenWidth) {
-                    leftPosition = screenWidth - box.outerWidth() - 20; // Position links vom Cursors
-                }
-
-                // Überprüfen, ob genügend Platz unterhalb des Cursors vorhanden ist
-                if (topPosition + box.outerHeight() > screenHeight) {
-                    topPosition = screenHeight - box.outerHeight() - 20; // Position oberhalb des Cursors
-                }
-
-                // Anpassen der Position der Info-Box
-                $('#tsunamiInfoBox').css({
-                    'left': leftPosition,
-                    'top': topPosition,
-                    'display': 'block' // Anzeigen der Box
-                });
-            });
-
-            // Mouseout-Effekt für Tsunami-Punkte
-            dot.mouseout(function () {
-                // Ausblenden der Info-Box beim Verlassen des Tsunami-Punkts
-                $('#tsunamiInfoBox').css('display', 'none');
-            });
+            sliderDiv.append(dot);
         }
     });
 }
-
-
-
-
-
-
 
 function clearRenderer() {
     let worldMap = renderer.children().get(0);
@@ -226,9 +322,6 @@ function filterMagnitudeIntervallOutside(magnitudeLow, magnitudeHigh) {
         }
     })
 }
-
-
-
 
 function drawEarthquakeMap() {
     const magnitudeMax = gmynd.dataMax(earthquakeData, "Magnitude");
@@ -279,7 +372,17 @@ function drawEarthquakeMap() {
             dot.attr('isHighMagnitude', 'false');
         }
 
+
+
+
+
         dot.attr('earthquakeEvent', magnitudeLevel);
+        dot.attr('Date', earthquakeEvent.Date);
+        dot.attr('Type', earthquakeEvent.Type);
+        dot.attr('Depth', earthquakeEvent.Depth);
+
+
+
 
         // Event-Handler für mouseover, mouseout und click
         dot.mouseover(function (event) {
@@ -314,42 +417,84 @@ function drawEarthquakeMap() {
             'top': y
         });
 
-        renderer.append(dot);
-        // console.log(renderer);
-        // renderer.clear();
+        sliderDiv.append(dot);
     });
 
     // Erzeugen und Positionieren der Info-Box
     $('body').append('<div id="earthquakeInfoBox"></div>');
-
-    $('.dot').mouseover(function (event) {
-        const magnitude = $(this).attr('earthquakeEvent');
-        const mouseX = event.pageX;
-        const mouseY = event.pageY;
-        const boxWidth = $('#earthquakeInfoBox').outerWidth();
-        const boxHeight = $('#earthquakeInfoBox').outerHeight();
-
-        let posX = mouseX + 20; // 20px rechts von der Maus
-        let posY = mouseY - boxHeight / 2; // Zentriert vertikal zur Maus
-
-        // Prüfen, ob die Box außerhalb des rechten Bildschirmrandes liegt
-        if (posX + boxWidth > $(window).width()) {
-            posX = mouseX - boxWidth - 20; // 20px links von der Maus
-        }
-
-        // Prüfen, ob die Box außerhalb des oberen Bildschirmrandes liegt
-        if (posY < 0) {
-            posY = 0; // Oben ausgerichtet
-        }
-
-        $('#earthquakeInfoBox').text('Magnitude: ' + magnitude).css({
-            'top': posY,
-            'left': posX
-        }).show();
-    }).mouseout(function () {
-        $('#earthquakeInfoBox').hide();
-    });
 }
+// Event-Listener für den Button btn1
+document.getElementById('btn1').addEventListener('click', function() {
+    console.log("Is pressed");
+    document.querySelectorAll('div.lowMagnitude.dot').forEach(function(element) {
+        if (element.style.display === 'none') {
+            element.style.display = '';
+        } else {
+            element.style.display = 'none';
+        }
+    });
+});
+
+document.getElementById('btn2').addEventListener('click', function() {
+    console.log("Is pressed");
+    document.querySelectorAll('div.isMediumMagnitude.dot').forEach(function(element) {
+        if (element.style.display === 'none') {
+            element.style.display = '';
+        } else {
+            element.style.display = 'none';
+        }
+    });
+});
+
+document.getElementById('btn3').addEventListener('click', function() {
+    console.log("Is pressed");
+    document.querySelectorAll('div.isHighMagnitude.dot').forEach(function(element) {
+        if (element.style.display === 'none') {
+            element.style.display = '';
+        } else {
+            element.style.display = 'none';
+        }
+    });
+});
+
+
+// TSUNAMI BTNS
+
+document.getElementById('tsuBtn1').addEventListener('click', function() {
+    console.log("Is pressed");
+    document.querySelectorAll('div.dotTsu.lowIntensity').forEach(function(element) {
+        if (element.style.display === 'none') {
+            element.style.display = '';
+        } else {
+            element.style.display = 'none';
+        }
+    });
+});
+
+document.getElementById('tsuBtn2').addEventListener('click', function() {
+    console.log("Is pressed");
+    document.querySelectorAll('div.dotTsu.isMediumIntensity').forEach(function(element) {
+        if (element.style.display === 'none') {
+            element.style.display = '';
+        } else {
+            element.style.display = 'none';
+        }
+    });
+});
+
+document.getElementById('tsuBtn3').addEventListener('click', function() {
+    console.log("Is pressed");
+    document.querySelectorAll('div.dotTsu.isHighIntensity').forEach(function(element) {
+        if (element.style.display === 'none') {
+            element.style.display = '';
+        } else {
+            element.style.display = 'none';
+        }
+    });
+});
+// // Rufen Sie die Funktion auf, um die Erdbebenkarte zu zeichnen
+// drawEarthquakeMap();
+
 
 
 
@@ -359,3 +504,80 @@ $(document).ready(function () {
         $('#togglePanel').toggleClass('open'); /* Fügt oder entfernt die Klasse 'open' */
     });
 });
+
+
+
+
+
+
+
+
+$(document).ready(function() {
+    // Alle Tsunami-Events initial ausblenden
+    $('.dotTsu').css('transition', 'opacity 0.3s').css('opacity', '0');
+    
+    // Toggle-Switch-Element auswählen
+    const toggleSwitch = $('#toggleSwitch input[type="checkbox"]');
+    
+    // Funktion zum Ein- und Ausblenden der Tsunami-Events
+    function toggleTsunamiEvents(isChecked) {
+        const dots = $('.dotTsu');
+        
+        // Ein- oder Ausblenden der Tsunami-Events
+        dots.css('opacity', isChecked ? '1' : '0');
+    }
+    
+    // Event-Handler für den Toggle-Switch hinzufügen
+    toggleSwitch.change(function() {
+        // Überprüfen, ob der Toggle-Switch eingeschaltet ist
+        const isChecked = $(this).is(':checked');
+        
+        // Tsunami-Events ein- oder ausblenden
+        toggleTsunamiEvents(isChecked);
+    });
+    
+    // Beim Laden der Seite den Status des Toggle-Switches überprüfen und Tsunami-Events entsprechend ein- oder ausblenden
+    toggleTsunamiEvents(toggleSwitch.is(':checked'));
+});
+
+
+
+$(document).ready(function() {
+    // Funktion zum Ein- und Ausblenden der Erdbeben-Events
+    function toggleEarthquakeEvents(isChecked) {
+        $('.dot').css('opacity', isChecked ? '1' : '0');
+    }
+    
+    // Event-Handler für den Erdbeben-Switch
+    $('#toggleSwitchEarth input[type="checkbox"]').change(function() {
+        const isChecked = $(this).is(':checked');
+        toggleEarthquakeEvents(isChecked);
+    });
+    
+    // Beim Laden der Seite den Status des Erdbeben-Switches überprüfen und entsprechend Erdbeben-Events ein- oder ausblenden
+    toggleEarthquakeEvents($('#toggleSwitchEarth input[type="checkbox"]').is(':checked'));
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    const buttons = document.querySelectorAll(".btnTsu");
+
+    buttons.forEach(button => {
+        button.addEventListener("click", function() {
+            this.classList.toggle("active");
+        });
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    const buttons = document.querySelectorAll(".btn");
+
+    buttons.forEach(button => {
+        button.addEventListener("click", function() {
+            this.classList.toggle("active");
+        });
+    });
+    
+});
+
+

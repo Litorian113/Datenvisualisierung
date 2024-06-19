@@ -27,6 +27,7 @@ function drawSunBurst(data) {
     const centerX = stageWidth / 2;
     const centerY = stageHeight / 2;
     const maxRadius = 400; // Define the maximum radius of the circle
+    const minRadius = 50; // Define the minimum radius of the donut hole
 
     // Sort data by Depth in descending order
     data.sort((a, b) => b.Depth - a.Depth);
@@ -37,11 +38,11 @@ function drawSunBurst(data) {
     const lowDepthColor = '#345ECB'; // for depths from 0 to 33 #1995AD, #A1D6E2, #F1F1F2
 
     // Compute the step size based on the number of data points
-    const step = maxRadius / data.length;
+    const step = (maxRadius - minRadius) / data.length;
 
     data.forEach((item, index) => {
         // Compute the radius for this point based on its sorted index
-        const radius = step * (index + 1);
+        const radius = minRadius + step * (index + 1);
 
         // Generate a random angle
         const angle = Math.random() * 2 * Math.PI;
@@ -56,7 +57,8 @@ function drawSunBurst(data) {
             'top': y,
             'position': 'absolute',
             'border-radius': '50%',
-            'border': '1px solid black',
+            'border': '0.2px solid black',
+            // 'opacity': '70%',
             'background-color': getDotColor(item.Depth, item.Magnitude)
         }).attr({
             'earthquakeEvent': item.Depth,
@@ -91,11 +93,11 @@ function setDotSizeProportional(dot, magnitude) {
     let size;
 
     if (magnitude < 6.5) {
-        size = 2;
+        size = magnitude / 2;
     } else if (magnitude >= 6.5 && magnitude < 7.2) {
-        size = 10;
+        size = magnitude;
     } else {
-        size = 20;
+        size = magnitude * 2;
     }
 
     dot.css({
@@ -105,12 +107,37 @@ function setDotSizeProportional(dot, magnitude) {
 }
 
 function getDotColor(depth, magnitude) {
-    if (depth <= 30) {
-        return magnitude < 6.5 ? '#3747FF' : (magnitude < 7.2 ? '#5499FF' : '#66DDFF');
-    } else if (depth <= 80) {
-        return magnitude < 6.5 ? '#8542FF' : (magnitude < 7.2 ? '#BF5AFF' : '#ED75FF');
+    if (depth > 100) {
+        return '#CB345E';
+    } else if (depth >= 34 && depth <= 100) {
+        return '#5ECB34';
     } else {
-        return magnitude < 6.5 ? '#FF4601' : (magnitude < 7.2 ? '#FA6F00' : '#FF9901');
+        return '#345ECB';
+    }
+}
+
+
+function getDotColor(depth, magnitude) {
+    if (depth <= 4) {
+        return magnitude < 6.5 ? '#2c9448' : (magnitude < 7.2 ? '#80bf91' : '#b3d9bd');
+    } else if (depth <= 8) {
+        return magnitude < 6.5 ? '#306f67' : (magnitude < 7.2 ? '#83a9a4' : '#b5cbc8');
+    } else if (depth <= 12) {
+        return magnitude < 6.5 ? '#345a76' : (magnitude < 7.2 ? '#859cad' : '#b6c4ce');
+    } else if (depth <= 16) {
+        return magnitude < 6.5 ? '#3b457d' : (magnitude < 7.2 ? '#898fb1' : '#b8bcd0');
+    } else if (depth <= 20) {
+        return magnitude < 6.5 ? '#644265' : (magnitude < 7.2 ? '#a28ea3' : '#c7bbc8');
+    } else if (depth <= 24) {
+        return magnitude < 6.5 ? '#8c3c4a' : (magnitude < 7.2 ? '#ba8a92' : '#d6b9be');
+    } else if (depth <= 28) {
+        return magnitude < 6.5 ? '#b33332' : (magnitude < 7.2 ? '#d18584' : '#e3b6b5');
+    } else if (depth <= 32) {
+        return magnitude < 6.5 ? '#ce562c' : (magnitude < 7.2 ? '#e29a80' : '#eec2b3');
+    } else if (depth <= 50) {
+        return magnitude < 6.5 ? '#fef5a4' : (magnitude < 7.2 ? '#ebb57d' : '#f3d3b1');
+    } else {
+       return magnitude < 6.5 ? '#fde201' : (magnitude < 7.2 ? '#feee67' : '#fef5a4'); 
     }
 }
 

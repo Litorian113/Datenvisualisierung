@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/style.css">
 
 
-    
+    <link rel="icon" type="image/x-icon" href="/Assets/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sometype+Mono:ital,wght@0,400..700;1,400..700&display=swap"
@@ -38,7 +38,7 @@
     </div>
     <div id="mainScreen">
 
-        <div class="controlPanel open">
+        <div class="controlPanel">
             <div>
                 <div>
                     <h2>Tsunami and Earthquake Events</h2>
@@ -71,34 +71,76 @@
                     </div>
 
                     <div class="controlButtons">
-                        <div class="boxbox" id="intesity-low">
+                        <div class="boxbox">
                             <div>
-                                <button class="btn"><img src="/Assets/earthquake_24dp_FILL0_wght400_GRAD0_opsz24.png"></button>
+                                <button class="btn" id="btn1"><img src="/Assets/EarthLevel1.png"></button>
                             </div>
                         </div>
-                        <div class="boxbox" id="intesity-medium">
+                        <div class="boxbox">
                             <div>
-                                <button class="btn"><img src="/Assets/earthquake_24dp_FILL0_wght400_GRAD0_opsz24.png"></button>
+                                <button class="btn" id="btn2"><img src="/Assets/EarthLevel2.png"></button>
                             </div>
                         </div>
-                        <div class="boxbox" id="intesity-high">
+                        <div class="boxbox">
                             <div>
-                                <button class="btn"><img src="/Assets/earthquake_24dp_FILL0_wght400_GRAD0_opsz24.png"></button>
+                                <button class="btn" id="btn3"><img src="/Assets/EarthLevel3.png"></button>
                             </div>
                         </div>
                     </div>
 
+                    
+                    <div class="controlButtonsTsunami">
+                        <div class="boxboxTsu">
+                            <div>
+                                <button class="btnTsu" id="tsuBtn1"><img src="/Assets/WaveLevel1.png"></button>
+                            </div>
+                        </div>
+                        <div class="boxbox">
+                            <div>
+                                <button class="btnTsu" id="tsuBtn2"><img src="/Assets/WaveLevel2.png"></button>
+                            </div>
+                        </div>
+                        <div class="boxbox">
+                            <div>
+                                <button class="btnTsu" id="tsuBtn3"><img src="/Assets/WaveLevel3.png"></button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="hr">
+                        <hr>
+                    </div> -->
+                    <!-- <div id="boxTag">
+                        <div class="subtext">
+                            <h3>Datenvisualisierung von:</h3> <br>
+                            <p style="color: white">Franz Anhäupl</p> <br>
+                        </div>
+                        <div class="subtext">
+                        <h3>Dozenten:</h3> <br>
+                            <p style="color: white">Hartmut Bohnacker</p> <br>
+                            <p style="color: white">Benjamin Thomsen</p>
+                        </div>
+                        <br>
+                        <!-- <p id="textID" style="color: white">Im Rahmen des Faches Programmiertes Entwerfen II,an der HfG SoSe 2024 </p> -->
+                        <!-- </div>
+                    </div> --> 
+                    <!-- <div class="controlBox">
+                        <div>
+                            <img class="imageLogo" src="Assets/logo.png">
+                        </div>
 
+                    </div> -->
+                </div>
                 </div>
             </div>
-            <div id="togglePanel" class="open">
+            <div id="togglePanel">
                 <!-- Pfeil-Icon -->
             </div>
 
         </div>
         <div id="mapContainer">
             <div id="renderer">
-                <img class="worldMap" src="/Assets/Equirectangular_projection_world_map_without_borders.svg">
+                <img id="slider-image" class="worldMap" src="/Assets/DoubleMap.svg">
+                <div id="slider-div"></div>
             <!-- <div id="hoverLabel"></div>
             <div id="clickLabel"></div> -->
             </div>

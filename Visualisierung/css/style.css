@@ -20,10 +20,39 @@
     margin: 0;
 }
 
+
+
+
+
+/* _______________________________________________ */
+/* pointer events none auf das event das drüber liegt*/
+
+
+
+
+
+
+/* Grün 
+Gelb
+Lila
+Rot
+Blau */
+
+
+
+
+
+
+
+
+
+
+
 /* HTML-Tags können direkt per Name selektiert werden: body, div, p, etc. */
 body {
     background-color: rgb(20, 20, 30);
-    color:white;
+    /* background-color: rgb(255,255, 255); */
+    color: white;
     font-family: 'Fira Sans', sans-serif;
     margin: 0;
     padding: 0;
@@ -46,7 +75,7 @@ body {
     background-color: rgba(255, 255, 255, 0.05); */
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
+    /* overflow: hidden; */
 
     /* Wenn in einem Container absolute Elemente stecken, muss der "parent"-Container relativ definiert sein, dann wird das Koordinatensystem vom "parent" genutzt.
     Hier hat z. B. der Renderer-Container ein margin von 5px. Somit beginnt das Balkendiagramm erst bei 5px (x- und y-Position)
@@ -56,8 +85,9 @@ body {
 
 
 #renderer .worldMap {
-    width: 100%;
+    height: 100%;
 }
+
 
 /* .worldMap {
 
@@ -67,6 +97,12 @@ body {
 
 } */
 
+.matching-event-dot {
+  position: absolute;
+  border-radius: 50%; /* Rundes Aussehen */
+  color: white;
+  border: 2px solid white; /* Optional: Rand um den Punkt */
+}
 .dot {
     position: absolute;
     background-color: white;
@@ -100,8 +136,8 @@ body {
     background-color: #0066ff;
     border-radius: 50%;
     border-color: #00ffff;
-    -webkit-filter: drop-shadow(2px 2px 1px #2b5af7b3);
-    filter: drop-shadow(0px 0px 5px #2b57f7e1);
+    /* -webkit-filter: drop-shadow(2px 2px 1px #2b5af7b3);
+    filter: drop-shadow(0px 0px 5px #2b57f7e1); */
     /* text-shadow: 20px 20px #0066ff; */
     /* border-width: 2px; */
 }
@@ -303,7 +339,8 @@ input {
     background-color: rgb(38, 38, 38);
     z-index: 200;
     padding: 40px;
-    transition: left 0.3s ease; /* Fügt eine Transition für die linke Position hinzu */
+    transition: left 0.3s ease; 
+    align-content: center;/* Fügt eine Transition für die linke Position hinzu */
 }
 
 #togglePanel {
@@ -447,6 +484,14 @@ input {
     flex-wrap: nowrap;
   }
 
+  .controlButtonsTsunami {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    flex-wrap: nowrap;
+  }
+
 
   .btn {
     background-color: #808080; /* Blue background */
@@ -460,9 +505,45 @@ input {
     scale: 85%;
   }
 
-  .btn:hover {
+  /* .btn:hover {
     background-color: rgb(172, 172, 172);
+  } */
+  .btn.active:hover {
+    background-color: rgba(172, 172, 172, 0.5); /* Hover effect, semi-transparent to show the active color through */
+}
+
+.btn.active {
+    background-color: transparent; /* Active state color */
+    transition: background-color 0.3s;
+}
+  .btnTsu {
+    color: white; /* White text */
+    padding: 12px 16px; /* Some padding */
+    font-size: 40px; /* Set a font size */
+    color: white;
+    border-radius: 20px;
+    scale: 85%;
   }
+  .boxboxTsu {
+    justify-content: space-between;
+  }
+
+  .btnTsu {
+    background-color: #808080; /* Inactive state */
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+     /* Smooth transition for background color */
+}
+
+.btnTsu.active:hover {
+    background-color: rgba(172, 172, 172, 0.5); /* Hover effect, semi-transparent to show the active color through */
+}
+
+.btnTsu.active {
+    background-color: transparent; /* Active state color */
+    transition: background-color 0.3s;
+}
 
   .boxbox {
     justify-content: space-between;
@@ -494,6 +575,7 @@ input {
   align-items: center;
   z-index: 1000;
   gap: 50px;
+  /* position: fixed; */
 }
 
 /* Stil für die Navigationsleiste Links */
@@ -524,4 +606,77 @@ input {
 /* Stil für Hover-Effekt auf Links */
 .navbar a:hover {
   color: white; /* Textfarbe ändert sich zu Weiß */
+}
+
+
+#slider-image {
+  position: absolute;
+  left: 0;
+  top: 50px;
+  /* pointer-events: none;
+  z-index: -10; */
+}
+
+#slider-div {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: all;
+  /* background-color: rgba(255, 0, 0, 0.5); */
+}
+
+
+
+.hidden {
+  display: none;
+}
+/* .lowMagnitude {
+  background-color: blue;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  position: absolute;
+}
+.isMediumMagnitude {
+  background-color: yellow;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  position: absolute;
+}
+.isHighMagnitude {
+  background-color: red;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  position: absolute;
+} */
+
+.subtext {
+  padding-top: 20px;
+  line-height: 12px;
+}
+
+h3 {
+  font-family: sometype mono;
+}
+
+#textID {
+  padding-top: 20px;
+}
+
+#logo {
+  scale: 50%;
+}
+
+.imageLogo {
+  color: white;
+  max-width:75%;
+  max-height:75%;
+}
+
+#boxTag {
+  padding-top: 35px;
 }
