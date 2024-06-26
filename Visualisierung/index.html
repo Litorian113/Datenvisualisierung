@@ -1,3 +1,13 @@
+<!-- TODO
+    Projekt aufräumen 
+    Comparison, dots gerade auf einander und stylen
+    Buttons bei Index schön anpassen
+    Doku schreiben
+
+-->
+
+
+
 <!DOCTYPE html>
 <html lang="de">
 
@@ -23,6 +33,7 @@
     <!-- Navigationsleiste -->
     <div class="navbar">
         <a class="active" href="index.html">Overview</a>
+        <a href="planetview.html">3D Model</a>
         <a href="slider.html">Time Beam</a>
         <a href="comparison.html">Comparison</a>
         <a href="depth.html">Depth and Intensity</a>
@@ -40,10 +51,11 @@
 
         <div class="controlPanel">
             <div>
-                <div>
-                    <h2>Tsunami and Earthquake Events</h2>
+                <div id="uniqHeader">
+                    <h2>Tsunami and <br>Earthquake Events</h2>
                 </div>
                 <div class="turnOnOffArea">
+                    <div class="wrapperBoy">
                     <div class="controlBox" id="toggleSwitchEarth">
                         <div>
                             <p class="controlPanelText">Earthquake</p>
@@ -66,43 +78,39 @@
                             </label>
                         </div>
                     </div>
+                </div>
                     <div class="hr">
                         <hr>
                     </div>
 
-                    <div class="controlButtons">
-                        <div class="boxbox">
-                            <div>
-                                <button class="btn" id="btn1"><img src="/Assets/EarthLevel1.png"></button>
+                    <div class="controlBox2">
+                        <div>
+                            <p class="controlPanelText">Earthquake Intensity</p>
+                            <div class="intensityButtonsEarth">
+                                <div class="boxbox">
+                                    <button class="btn" id="btn1"></button>
+                                </div>
+                                <div class="boxbox">
+                                    <button class="btn" id="btn2"></button>
+                                </div>
+                                <div class="boxbox">
+                                    <button class="btn" id="btn3"></button>
+                                </div>
                             </div>
                         </div>
-                        <div class="boxbox">
-                            <div>
-                                <button class="btn" id="btn2"><img src="/Assets/EarthLevel2.png"></button>
-                            </div>
-                        </div>
-                        <div class="boxbox">
-                            <div>
-                                <button class="btn" id="btn3"><img src="/Assets/EarthLevel3.png"></button>
-                            </div>
-                        </div>
-                    </div>
-
                     
-                    <div class="controlButtonsTsunami">
-                        <div class="boxboxTsu">
-                            <div>
-                                <button class="btnTsu" id="tsuBtn1"><img src="/Assets/WaveLevel1.png"></button>
-                            </div>
-                        </div>
-                        <div class="boxbox">
-                            <div>
-                                <button class="btnTsu" id="tsuBtn2"><img src="/Assets/WaveLevel2.png"></button>
-                            </div>
-                        </div>
-                        <div class="boxbox">
-                            <div>
-                                <button class="btnTsu" id="tsuBtn3"><img src="/Assets/WaveLevel3.png"></button>
+                        <div>
+                            <p class="controlPanelText">Tsunami Intensity</p>
+                            <div class="intensityButtonsTsu">
+                                <div class="boxboxTsu">
+                                    <button class="btnTsu" id="tsuBtn1"></button>
+                                </div>
+                                <div class="boxboxTsu">
+                                    <button class="btnTsu" id="tsuBtn2"></button>
+                                </div>
+                                <div class="boxboxTsu">
+                                    <button class="btnTsu" id="tsuBtn3"></button>
+                                </div>
                             </div>
                         </div>
                     </div>

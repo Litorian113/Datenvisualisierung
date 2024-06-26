@@ -465,89 +465,103 @@ input {
     border-radius: 50%;
   }
 
-  .controlBox {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
 
   .turnOnOffArea {
     margin-top: 40px;
   }
 
-  .controlButtons {
+
+  .controlBox {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    flex-direction: row;
+}
+
+.controlBox2 {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+#uniqHeader {
+  margin-left: 70px;
+  margin-bottom: 80px;
+}
+
+.wrapperBoy {
+  margin-left: 80px;
+  margin-right: 80px;
+}
+
+.controlButtons, .controlButtonsTsunami {
     display: flex;
     justify-content: center;
     margin-top: 10px;
     margin-bottom: 10px;
-    flex-wrap: nowrap;
-  }
+}
 
-  .controlButtonsTsunami {
+.intensityButtonsEarth, .intensityButtonsTsu {
+  display: flex;
+  justify-content: left;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.boxbox, .boxboxTsu {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    flex-wrap: nowrap;
-  }
-
-
-  .btn {
-    background-color: #808080; /* Blue background */
-    border: none; /* Remove borders */
-    color: white; /* White text */
-    padding: 12px 16px; /* Some padding */
-    font-size: 16px; /* Set a font size */
-    cursor: pointer; /* Mouse pointer on hover */
-    color: white;
-    border-radius: 20px;
-    scale: 85%;
-  }
-
-  /* .btn:hover {
-    background-color: rgb(172, 172, 172);
-  } */
-  .btn.active:hover {
-    background-color: rgba(172, 172, 172, 0.5); /* Hover effect, semi-transparent to show the active color through */
 }
 
-.btn.active {
-    background-color: transparent; /* Active state color */
-    transition: background-color 0.3s;
-}
-  .btnTsu {
-    color: white; /* White text */
-    padding: 12px 16px; /* Some padding */
-    font-size: 40px; /* Set a font size */
-    color: white;
-    border-radius: 20px;
-    scale: 85%;
-  }
-  .boxboxTsu {
-    justify-content: space-between;
-  }
-
-  .btnTsu {
-    background-color: #808080; /* Inactive state */
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
-     /* Smooth transition for background color */
+.btn, .btnTsu {
+  background-color: #ffffff; /* Inactive state */
+  border: none;
+  color: white;
+  padding: 10px 20px; /* Adjust padding */
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 50%; /* Round button */
+  width: 50px; /* Adjust width and height for circle */
+  height: 50px;
+  margin: 5px; /* Adjust margin */
+  transition: background-color 0.3s, border-color 0.3s; /* Smooth transitions */
 }
 
-.btnTsu.active:hover {
-    background-color: rgba(172, 172, 172, 0.5); /* Hover effect, semi-transparent to show the active color through */
+.btnTsu {
+  font-size: 24px; /* Adjust font size for tsunami buttons */
 }
 
-.btnTsu.active {
-    background-color: transparent; /* Active state color */
-    transition: background-color 0.3s;
+/* .btn:hover, .btnTsu:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+} */
+
+.btn.active, .btnTsu.active {
+  background-color: transparent; /* Transparent background when active */
+  border: 2px solid #ffffff; /* White border */
+  transition: background-color 0.3s, border-color 0.3s; /* Smooth transitions */
 }
 
-  .boxbox {
-    justify-content: space-between;
-  }
+.btn.active:hover, .btnTsu.active:hover {
+  background-color: rgba(255, 255, 255, 0.472); /* Transparent background on active hover */
+}
+
+
+.controlBox h2 {
+    text-align: center; /* Center align headings */
+    margin-bottom: 5px; /* Adjust margin */
+
+}
+
+
+
+
+
+
 
   .hr {
     margin-top: 30px;
@@ -573,7 +587,7 @@ input {
   display: flex;
   justify-content: center; /* Zentriert die Links */
   align-items: center;
-  z-index: 1000;
+  z-index: 200;
   gap: 50px;
   /* position: fixed; */
 }

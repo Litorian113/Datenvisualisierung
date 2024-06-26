@@ -1,7 +1,3 @@
-let stageHeight;
-let stageWidth;
-let renderer;
-
 $(function () {
     renderer = $('#renderer');
 
@@ -19,6 +15,8 @@ $(function () {
     });
 
     tsunamiData = tsunamiData.filter(item => item.YEAR >= 1965 && item.YEAR <= 2016);
+
+    
     tsunamiData.sort((a, b) => a.YEAR - b.YEAR);
 });
 
@@ -72,6 +70,9 @@ $(function () {
 
     function displayEvents(selectedYear) {
         $('.dot, .dotTsu').remove();
+        $('.connectionLine').remove(); // Remove any existing lines
+        $('.clickableArea').remove(); // Remove any existing clickable areas
+        $('#matchesCount').remove(); // Remove any existing match count
 
         let matchingEvents = [];
 
@@ -91,127 +92,150 @@ $(function () {
             }
         });
 
-        let x = 0;
-        const step = 50;
-        const yOffset = 20;
+        // Create and display the match count
+        let matchesCount = $('<div></div>');
+        matchesCount.attr('id', 'matchesCount');
+        matchesCount.css({
+            'position': 'absolute',
+            'top': stageHeight / 5 + 140, // Position it below the dots
+            'left': '50%',
+            'transform': 'translateX(-50%)',
+            'font-size': '18px',
+            'color': 'white',
+            'text-align': 'center',
+            'font-family': 'Sometype Mono' // Set font family
+        });
+        matchesCount.text(`Matches found in this year: ${matchingEvents.length}`);
+        $('#renderer').append(matchesCount);
 
-        matchingEvents.forEach(eventPair => {
+        // Calculate total width needed for all points
+        const totalWidth = matchingEvents.length * 100; // Increased step size to 100
+
+        // Calculate the starting x position to center the points on the screen
+        const startX = stageWidth / 2 - totalWidth / 2;
+
+        let x = startX;
+        const yOffset = 60; // Increased the offset to accommodate bigger dots
+
+        let activeIndex = 0; // Set the initial active index
+
+        matchingEvents.forEach((eventPair, index) => {
             const { earthquakeEvent, tsunamiEvent } = eventPair;
 
             let dotEq = $('<div></div>');
+            let dotTsu = $('<div></div>');
+            let pairId = `pair-${index}`;
+
+            let magnitude = parseFloat(earthquakeEvent.Magnitude);
+            let eqColor, eqSize;
+            if (magnitude <= 6) {
+                eqColor = 'yellow';
+                eqSize = 16; // Increased size
+            } else if (magnitude > 6 && magnitude <= 6.5) {
+                eqColor = 'orange';
+                eqSize = 24; // Increased size
+            } else {
+                eqColor = 'red';
+                eqSize = 40; // Increased size
+            }
+
             dotEq.attr('earthquakeEvent', earthquakeEvent.Magnitude);
             dotEq.attr('year', earthquakeEvent.YEAR);
+            dotEq.attr('pair-id', pairId);
             dotEq.addClass('dot');
             dotEq.css({
-                'height': 10,
-                'width': 10,
-                'left': x,
-                'top': stageHeight / 2 + yOffset,
-                'background-color': 'red'
+                'background-color': eqColor,
+                'height': eqSize,
+                'width': eqSize,
+                'left': x + (40 - eqSize) / 2, // Adjust x to center smaller dots
+                'top': stageHeight / 5 + yOffset,
+                'opacity': index === activeIndex ? 1 : 0.5 // Set initial active dot
             });
             $('#renderer').append(dotEq);
 
-            dotEq.hover(function (event) {
-                var box = $('<div class="earthquakeBox"></div>');
-                var magnitude = earthquakeEvent.Magnitude;
-                var date = earthquakeEvent.Date;
-                var time = earthquakeEvent.Time;
-                var correctedDate = adjustDate(date);
-                var correctedTime = time.slice(0, 5);
-                box.html("<b>Date:</b> " + correctedDate + "<br><b>Time: </b>" + correctedTime + "<br><b>Magnitude:</b>" + magnitude);
-
-                var mouseX = event.clientX;
-                var mouseY = event.clientY;
-                box.css({
-                    'position': 'absolute',
-                    'top': mouseY + 'px',
-                    'left': mouseX + 'px',
-                    'max-width': '300px',
-                    'background-color': 'white',
-                    'color': 'black',
-                    'padding': '10px',
-                    'border': '1px solid black',
-                    'background-color': 'rgba(255, 255, 255, 0.9)',
-                    'color': 'black',
-                    'padding': '5px 10px',
-                    'border': '1px solid #ccc',
-                    'z-index': '9999',
-                    'font-family': 'sometype mono',
-                    'font-size': '12px',
-                    'border-radius': '5px',
-                    'box-shadow': '0 0 5px rgba(0, 0, 0, 0.3)'
-                });
-
-                $('body').append(box);
-            }, function () {
-                $('.earthquakeBox').remove();
-            });
-
-            let dotTsu = $('<div></div>');
             dotTsu.attr('tsunamiEvent', tsunamiEvent.TS_INTENSITY);
+            dotTsu.attr('pair-id', pairId);
             dotTsu.addClass('dotTsu');
             dotTsu.css({
-                'height': 10,
-                'width': 10,
+                'height': 40, // Increased size
+                'width': 40, // Increased size
                 'left': x,
-                'top': stageHeight / 2 - yOffset,
-                'background-color': 'blue'
+                'top': stageHeight / 5 - yOffset,
+                'opacity': index === activeIndex ? 1 : 0.5 // Set initial active dot
             });
             $('#renderer').append(dotTsu);
 
-            dotTsu.hover(function (event) {
-                var day = tsunamiEvent.DAY;
-                var month = tsunamiEvent.MONTH;
-                var year = tsunamiEvent.YEAR;
-                var cause = tsunamiEvent.CAUSE;
-                var comments = tsunamiEvent.COMMENTS;
-                var time = tsunamiEvent.HOUR + ":" + tsunamiEvent.MINUTE;
-                var formattedDate = formatDate(day, month, year);
+            let clickableArea = $('<div></div>');
+            clickableArea.addClass('clickableArea');
+            clickableArea.css({
+                'position': 'absolute',
+                'left': x,
+                'top': stageHeight / 5 - yOffset,
+                'width': 40, // Increased size
+                'height': 2 * yOffset + 40, // Cover the area between the two dots
+                'cursor': 'pointer',
+                'opacity': 0 // Invisible
+            });
+            $('#renderer').append(clickableArea);
 
-                var box = $('<div class="tsunamiBox"></div>');
-                box.html("<b>Date:</b> " + formattedDate + "<br><b>Time: </b>" + time + "<br><b>Cause:</b>" + cause + "<br><b>Comments:</b> " + comments);
+            dotEq.add(dotTsu).add(clickableArea).on('mouseenter mouseleave', function (event) {
+                const isMouseEnter = event.type === 'mouseenter';
 
-                var boxWidth = 300;
-                var boxHeight = box.outerHeight();
-                var mouseX = event.clientX;
-                var mouseY = event.clientY;
-
-                var offsetX = 15;
-                var offsetY = 15;
-
-                if (mouseX + offsetX + boxWidth > $(window).width()) {
-                    mouseX = $(window).width() - boxWidth - offsetX;
+                if (isMouseEnter) {
+                    activeIndex = index; // Update active index on mouse enter
                 }
 
-                if (mouseY + offsetY + boxHeight > $(window).height()) {
-                    mouseY = $(window).height() - boxHeight - offsetY;
-                }
+                $('.connectionLine').remove(); // Remove any existing lines
 
-                box.css({
-                    'position': 'absolute',
-                    'top': mouseY + offsetY + 'px',
-                    'left': mouseX + offsetX + 'px',
-                    'max-width': '35%',
-                    'background-color': 'rgba(255, 255, 255, 0.9)',
-                    'color': 'black',
-                    'padding': '5px 10px',
-                    'border': '1px solid #ccc',
-                    'z-index': '9999',
-                    'font-family': 'sometype mono',
-                    'font-size': '12px',
-                    'border-radius': '5px',
-                    'box-shadow': '0 0 5px rgba(0, 0, 0, 0.3)'
+                matchingEvents.forEach((otherEventPair, otherIndex) => {
+                    const { earthquakeEvent: otherEq, tsunamiEvent: otherTsu } = otherEventPair;
+                    const otherPairId = `pair-${otherIndex}`;
+
+                    if (otherIndex === activeIndex) {
+                        const opacity = isMouseEnter ? 1 : 0.5;
+                        $(`[pair-id="${otherPairId}"]`).css('opacity', 1).toggleClass('active', true);
+
+                        // Add the connection line for the active pair
+                        let line = $('<svg class="connectionLine"></svg>');
+                        line.attr('width', '100%');
+                        line.attr('height', '100%');
+                        line.css({
+                            'position': 'absolute',
+                            'top': 0,
+                            'left': 0,
+                            'pointer-events': 'none' // Make sure the line doesn't interfere with hover events
+                        });
+
+                        let svgPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+
+                        // Calculate coordinates for the curve
+                        const x1 = parseFloat($(`[pair-id="${otherPairId}"].dot`).css('left')) + eqSize / 2;
+                        const y1 = stageHeight / 5 + yOffset + eqSize / 2;
+                        const x2 = parseFloat($(`[pair-id="${otherPairId}"].dotTsu`).css('left')) + 20;
+                        const y2 = stageHeight / 5 - yOffset + 20;
+
+                        const curvePath = `M ${x1} ${y1} C ${x1} ${(y1 + y2) / 2}, ${x2} ${(y1 + y2) / 2}, ${x2} ${y2}`;
+                        svgPath.setAttribute('d', curvePath);
+                        svgPath.setAttribute('stroke', '#FFFFFF');
+                        svgPath.setAttribute('stroke-width', '4'); // Increased width
+                        svgPath.setAttribute('fill', 'none');
+
+                        line.append(svgPath);
+                        $('#renderer').append(line);
+
+                        // Update the comments box with the tsunami comments
+                        $('#commentsBox').html(`<b>Tsunami Comments:</b> ${otherTsu.COMMENTS}`);
+                    } else {
+                        const opacity = 0.5;
+                        $(`[pair-id="${otherPairId}"]`).css('opacity', opacity).removeClass('active');
+                    }
                 });
-
-                $('body').append(box);
-            }, function () {
-                $('.tsunamiBox').remove();
             });
 
-            x += step;
+            x += 100;  // Increased step size to 100 for more space between pairs
         });
+
+        // Trigger a hover event on the initial active pair to show the connection line and comments
+        $(`[pair-id="pair-${activeIndex}"]`).trigger('mouseenter');
     }
 });
-
-// HTML part
-

@@ -6,7 +6,7 @@
   "Wenn Sie die Breite eines Elements auf 100 Pixel festlegen, werden diese 100 Pixel alle von Ihnen hinzugefügten Ränder oder Füllungen enthalten, und das Inhaltsfeld wird verkleinert, um diese zusätzliche Breite zu absorbieren. Dadurch wird die Größenanpassung von Elementen normalerweise viel einfacher." 
   *** Link: https://developer.mozilla.org/de/docs/Web/CSS/box-sizing ***
   */
-  box-sizing: border-box; 
+  box-sizing: border-box;
 
   /* Ich setze gerne für alle Elemente padding und margin auf 0, weil ich Abstände selbst definieren will.
   - Margin: Wird zum Positionieren von Elemente genutzt und ist der Abstand nach außen.
@@ -62,20 +62,21 @@ body {
 #mainScreen {
   width: 100%;
 }
+
 /* IDs können mit einer Raute selektiert werden. */
 #renderer {
   /* background-image: url("/Assets/Equirectangular_projection_world_map_without_borders.svg"); */
-    /* Full height */
+  /* Full height */
+  margin-top: -60px;
 
-
-/* Center and scale the image nicely */
+  /* Center and scale the image nicely */
   /* background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   background-color: rgba(255, 255, 255, 0.05); */
   width: 100vw;
   height: 100vh;
-  /* overflow: hidden; */
+  overflow: hidden;
 
   /* Wenn in einem Container absolute Elemente stecken, muss der "parent"-Container relativ definiert sein, dann wird das Koordinatensystem vom "parent" genutzt.
   Hier hat z. B. der Renderer-Container ein margin von 5px. Somit beginnt das Balkendiagramm erst bei 5px (x- und y-Position)
@@ -98,25 +99,29 @@ body {
 } */
 
 .matching-event-dot {
-position: absolute;
-border-radius: 50%; /* Rundes Aussehen */
-color: white;
-border: 2px solid white; /* Optional: Rand um den Punkt */
+  position: absolute;
+  border-radius: 50%;
+  /* Rundes Aussehen */
+  color: white;
+  border: 2px solid white;
+  /* Optional: Rand um den Punkt */
 }
+
 .dot {
   position: absolute;
   background-color: white;
   border-radius: 50%;
   /* opacity: 80%; */
   z-index: 2;
-  -webkit-filter: drop-shadow(2px 2px 1px #ffa200b3);
-  filter: drop-shadow(0px 0px 12px #ffac13d6);
-  
+  -webkit-filter: drop-shadow(2px 2px 1px #ff5b5bb3);
+  filter: drop-shadow(0px 0px 12px #ff5b5bb3);
+
   /* -webkit-filter: drop-shadow(2px 2px 1px #2b5af7b3);
   filter: drop-shadow(1px 0px 5px #ffac13d6); */
 }
 
-#hoverLabel, #clickLabel {
+#hoverLabel,
+#clickLabel {
   width: 100vw;
   height: 30px;
   line-height: 30px;
@@ -132,19 +137,20 @@ border: 2px solid white; /* Optional: Rand um den Punkt */
 .hoverOff {
   background-color: white;
 }
+
 .clickk {
   background-color: red;
 }
 
 .dotTsu {
-  position:absolute;
+  position: absolute;
   background-color: #0066ff;
   border-radius: 50%;
   border-color: #00ffff;
   opacity: 100%;
-  z-index: 0;
-  -webkit-filter: drop-shadow(2px 2px 1px #2b5af7b3);
-  filter: drop-shadow(0px 0px 5px #2b57f7e1);
+  z-index: 5;
+  -webkit-filter: drop-shadow(2px 2px 1px #4873ffb3);
+  filter: drop-shadow(0px 0px 5px #4873ffb3);
   /* text-shadow: 20px 20px #0066ff; */
   /* border-width: 2px; */
 }
@@ -164,7 +170,7 @@ border: 2px solid white; /* Optional: Rand um den Punkt */
   position: absolute;
   color: white;
   width: 40%;
-  background-color: rgb(38, 38, 38);
+  background: rgba(148, 148, 148, 0.13);
   bottom: 0px;
   z-index: 100;
   border-radius: 15px 15px 0px 0px;
@@ -199,6 +205,7 @@ border: 2px solid white; /* Optional: Rand um den Punkt */
   justify-content: left;
   padding-top: 40px;
 }
+
 .slider {
   -webkit-appearance: none;
   width: 90%;
@@ -269,44 +276,77 @@ input {
     animation-iteration-count: infinite;
     animation-name: orbit;
     animation-duration: 5.5s;
-    
+
     &:after {
       content: '';
       position: absolute;
       width: 10px;
       height: 10px;
       border-radius: 10px;
-      background: #fff; /* Pick a color */
+      background: #fff;
+      /* Pick a color */
     }
-    
-    &:nth-child(2) {  animation-delay: 340ms; }
-    &:nth-child(3) {  animation-delay: 680ms; }
-    &:nth-child(4) {  animation-delay: 920ms; }
-    &:nth-child(5) {  animation-delay: 1160ms; }
+
+    &:nth-child(2) {
+      animation-delay: 340ms;
+    }
+
+    &:nth-child(3) {
+      animation-delay: 680ms;
+    }
+
+    &:nth-child(4) {
+      animation-delay: 920ms;
+    }
+
+    &:nth-child(5) {
+      animation-delay: 1160ms;
+    }
   }
 }
 
-@keyframes orbit { 
-  0%   { transform:rotate(225deg); opacity: 1;
-         animation-timing-function: ease-out; } 
-    
-  7%   { transform:rotate(345deg);
-         animation-timing-function: linear; }
-    
-  30%   { transform:rotate(455deg);
-          animation-timing-function: ease-in-out; }
-    
-  39%   { transform:rotate(690deg);
-          animation-timing-function: linear; }
-    
-  70%   { transform:rotate(815deg); opacity: 1;
-         animation-timing-function: ease-out; }
-    
-  75%   { transform:rotate(945deg); 
-         animation-timing-function: ease-out; }
-    
-  76% { transform:rotate(945deg); opacity: 0; }
-  100% { transform:rotate(945deg); opacity: 0; } 
+@keyframes orbit {
+  0% {
+    transform: rotate(225deg);
+    opacity: 1;
+    animation-timing-function: ease-out;
+  }
+
+  7% {
+    transform: rotate(345deg);
+    animation-timing-function: linear;
+  }
+
+  30% {
+    transform: rotate(455deg);
+    animation-timing-function: ease-in-out;
+  }
+
+  39% {
+    transform: rotate(690deg);
+    animation-timing-function: linear;
+  }
+
+  70% {
+    transform: rotate(815deg);
+    opacity: 1;
+    animation-timing-function: ease-out;
+  }
+
+  75% {
+    transform: rotate(945deg);
+    animation-timing-function: ease-out;
+  }
+
+  76% {
+    transform: rotate(945deg);
+    opacity: 0;
+  }
+
+  100% {
+    transform: rotate(945deg);
+    opacity: 0;
+  }
 }
 
 
@@ -337,15 +377,15 @@ input {
   transition: .4s;
 }
 
-input:checked + .sliderRound {
+input:checked+.sliderRound {
   background-color: grey;
 }
 
-input:focus + .sliderRound {
+input:focus+.sliderRound {
   box-shadow: 0 0 1px grey;
 }
 
-input:checked + .sliderRound:before {
+input:checked+.sliderRound:before {
   -webkit-transform: translateX(28px);
   -ms-transform: translateX(30px);
   transform: translateX(30px);
@@ -376,48 +416,120 @@ input:checked + .sliderRound:before {
 
 /* Stil für die Navigationsleiste */
 .navbar {
-font-family: sometype mono;
-font-size: 18px;
-overflow: hidden;
-background-color: transparent; /* Transparenter Hintergrund */
-position: sticky;
-top: 0;
-width: 100%;
-display: flex;
-justify-content: center; /* Zentriert die Links */
-align-items: center;
-z-index: 1000;
-gap: 50px;
-/* position: fixed; */
+  font-family: sometype mono;
+  font-size: 18px;
+  overflow: hidden;
+  background-color: transparent;
+  /* Transparenter Hintergrund */
+  position: sticky;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  /* Zentriert die Links */
+  align-items: center;
+  z-index: 1000;
+  gap: 50px;
+  /* position: fixed; */
 }
 
 /* Stil für die Navigationsleiste Links */
 .navbar a {
-color: #999; /* Inaktiver Textfarbe */
-text-align: center;
-padding: 14px 20px;
-text-decoration: none;
-position: relative; /* Relativer Positionierung für das Unterstrichene */
+  color: #999;
+  /* Inaktiver Textfarbe */
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+  position: relative;
+  /* Relativer Positionierung für das Unterstrichene */
 }
 
 /* Stil für die aktiven Links */
 .navbar a.active {
-color: white; /* Aktiver Textfarbe */
+  color: white;
+  /* Aktiver Textfarbe */
 }
 
 .navbar a.active::after {
-content: "";
-position: absolute;
-bottom: 10px;
-left: 50%;
-transform: translateX(-50%);
-width: 50%;
-height: 1px;
-background-color: white; /* Weiße Linie als Unterstreichung */
+  content: "";
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  height: 1px;
+  background-color: white;
+  /* Weiße Linie als Unterstreichung */
 }
 
 /* Stil für Hover-Effekt auf Links */
 .navbar a:hover {
-color: white; /* Textfarbe ändert sich zu Weiß */
+  color: white;
+  /* Textfarbe ändert sich zu Weiß */
 }
+
+
+
+.fixed-container {
+  position: fixed;
+  left: 10px;
+  top: 50px;
+  background-color: rgb(25, 25, 25);
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  font-family: 'Sometype Mono', monospace;
+  font-size: 14px;
+}
+
+.fixed-container div {
+  margin-bottom: 5px;
+}
+
+
+
+/* Scrollbar styling */
+#commentsBox::-webkit-scrollbar {
+  width: 10px;  /* Set the width of the scrollbar */
+}
+
+#commentsBox::-webkit-scrollbar-track {
+  background: rgba(148, 148, 148, 0.13);  /* Set the background of the scrollbar track */
+  border-radius: 10px;  /* Optional: Round the edges of the scrollbar track */
+}
+
+#commentsBox::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.7);  /* Set the scrollbar thumb color */
+  border-radius: 10px;  /* Optional: Round the edges of the scrollbar thumb */
+  border: 2px solid rgba(148, 148, 148, 0.13);  /* Optional: Add a border around the scrollbar thumb */
+}
+
+#commentsBox::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.9);  /* Change the scrollbar thumb color on hover */
+}
+
+/* Styling for the comments box */
+#commentsBox {
+  max-width: 35%;
+  width: 100%;
+  margin: 20px auto;
+  padding: 15px;
+  font-family: 'Sometype Mono', monospace;
+  font-size: 14px;
+  text-align: left;
+  position: relative;
+  top: 350px;
+
+  background: rgba(148, 148, 148, 0.13);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(2.3px);
+  -webkit-backdrop-filter: blur(2.3px);
+  border: 1px solid rgba(0, 0, 0, 0.18);
+
+  max-height: 300px;  /* Adjust this value as needed */
+  overflow-y: auto;  /* Allow vertical scrolling within the box */
+}
+
 

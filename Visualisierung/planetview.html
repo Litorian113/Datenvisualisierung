@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="/Assets/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sometype+Mono:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Earthquake Globe</title>
+    <link rel="stylesheet" href="css/styleModel.css"> <!-- External CSS file for additional styling -->
+    <style>
+        body {
+            margin: 0;
+            font-family: 'sometype mono', monospace;
+            background-color: rgb(20, 20, 30);
+            color: white;
+        }
+
+        canvas {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .navbar {
+            font-family: 'Sometype Mono', monospace;
+            font-size: 18px;
+            overflow: hidden;
+            background-color: transparent;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            gap: 50px;
+        }
+
+        .navbar a {
+            color: #999;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .navbar a.active {
+            color: white;
+        }
+
+        .navbar a.active::after {
+            content: "";
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50%;
+            height: 1px;
+            background-color: white;
+        }
+
+        .navbar a:hover {
+            color: white;
+        }
+
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f3f3f300;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            backdrop-filter: blur(6px);
+            background-image: url("/Assets/earthWhite.png");
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .circle {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            opacity: 0;
+            transform: rotate(225deg);
+            animation-iteration-count: infinite;
+            animation-name: orbit;
+            animation-duration: 5.5s;
+        }
+
+        .circle::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 10px;
+            background: #fff;
+        }
+
+        .circle:nth-child(2) {
+            animation-delay: 340ms;
+        }
+
+        .circle:nth-child(3) {
+            animation-delay: 680ms;
+        }
+
+        .circle:nth-child(4) {
+            animation-delay: 920ms;
+        }
+
+        .circle:nth-child(5) {
+            animation-delay: 1160ms;
+        }
+
+        @keyframes orbit {
+            0% {
+                transform: rotate(225deg);
+                opacity: 1;
+                animation-timing-function: ease-out;
+            }
+            7% {
+                transform: rotate(345deg);
+                animation-timing-function: linear;
+            }
+            30% {
+                transform: rotate(455deg);
+                animation-timing-function: ease-in-out;
+            }
+            39% {
+                transform: rotate(690deg);
+                animation-timing-function: linear;
+            }
+            70% {
+                transform: rotate(815deg);
+                opacity: 1;
+                animation-timing-function: ease-out;
+            }
+            75% {
+                transform: rotate(945deg);
+                animation-timing-function: ease-out;
+            }
+            76% {
+                transform: rotate(945deg);
+                opacity: 0;
+            }
+            100% {
+                transform: rotate(945deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation bar -->
+    <div class="navbar">
+        <a href="index.html">Overview</a>
+        <a class="active" href="planetview.html">3D Model</a>
+        <a href="slider.html">Time Beam</a>
+        <a href="comparison.html">Comparison</a>
+        <a href="depth.html">Depth and Intensity</a>
+    </div>
+
+    <div class="loader" id="loaderContainer">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
+
+    <!-- Three.js rendering -->
+    <script>
+        // Hide the loader once the page is fully loaded
+        window.addEventListener('load', function() {
+            var loader = document.getElementById('loaderContainer');
+            loader.style.display = 'none';
+        });
+    </script>
+    <script src="data/data.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script>
+        // Scene, camera, renderer setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.05, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(new THREE.Color('rgb(20, 20, 30)')); // Set background color
+        renderer.gammaOutput = true; // Enable gamma correction
+        renderer.gammaFactor = 2.2; // Adjust gamma factor if needed
+        document.body.appendChild(renderer.domElement);
+
+        // Orbit controls
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.25;
+        controls.enableZoom = true;
+        controls.mouseButtons = {
+            LEFT: THREE.MOUSE.LEFT,
+            MIDDLE: THREE.MOUSE.MIDDLE,
+            RIGHT: THREE.MOUSE.RIGHT
+        };
+
+        // Globe parameters
+        const RADIUS = 8;
+
+        // Function to convert lat/lon to 3D coordinates on the globe, adjusted by depth
+        function latLongToVector3(lat, lon, radius, depth) {
+            const phi = (90 - lat) * (Math.PI / 180);
+            const theta = (lon + 180) * (Math.PI / 180);
+
+            // Adjust the radius based on depth (increase depth effect)
+            const adjustedRadius = radius - (depth / 1000) * radius * 0.2;
+
+            const x = -adjustedRadius * Math.sin(phi) * Math.cos(theta);
+            const y = adjustedRadius * Math.cos(phi);
+            const z = adjustedRadius * Math.sin(phi) * Math.sin(theta);
+
+            return new THREE.Vector3(x, y, z);
+        }
+
+        // Function to create dots on the globe
+        function createDot(position, color, size) {
+            const dotGeometry = new THREE.BufferGeometry();
+            const vertices = [];
+            vertices.push(0, 0, 0); // Center point
+            dotGeometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+
+            const dotMaterial = new THREE.PointsMaterial({ color, size });
+            const dot = new THREE.Points(dotGeometry, dotMaterial);
+            dot.position.copy(position);
+            return dot;
+        }
+
+        // Create the globe with dots for continents
+        const globe = new THREE.Group();
+        const globeGeometry = new THREE.SphereGeometry(RADIUS, 64, 64);
+        const globeMaterial = new THREE.PointsMaterial({ color: 0x6E6D95, size: 0.015 });
+
+        const globePoints = new THREE.Points(globeGeometry, globeMaterial);
+        globe.add(globePoints);
+
+        scene.add(globe);
+
+        // Add earthquake dots with depth and magnitude information
+        earthquakeData.forEach(data => {
+            const lat = parseFloat(data.Latitude);
+            const lon = parseFloat(data.Longitude);
+            const depth = parseFloat(data.Depth);
+            const magnitude = parseFloat(data.Magnitude);
+
+            let color;
+            let dotSize;
+            if (magnitude >= 5 && magnitude < 5.7) {
+                color = '#ffc100'; // Yellow
+                dotSize = 0.01; // Smaller size for yellow dots
+            } else if (magnitude >= 5.7 && magnitude < 6.3) {
+                color = '#ff7400'; // Orange
+                dotSize = 0.018; // Larger size for orange dots
+            } else if (magnitude >= 6.5) {
+                color = '#ff0000'; // Red
+                dotSize = 0.02; // Largest size for red dots
+            } else {
+                color = '#ff0000'; // Red (fallback)
+                dotSize = 0.03; // Default to largest size for red dots
+            }
+
+            const position = latLongToVector3(lat, lon, RADIUS, depth);
+            const earthquakeDot = createDot(position, color, dotSize);
+            globe.add(earthquakeDot);
+        });
+
+        // Position the camera
+        camera.position.z = 12;
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        animate();
+    </script>
+</body>
+</html>
